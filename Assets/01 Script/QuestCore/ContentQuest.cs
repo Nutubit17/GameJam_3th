@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ContentQuest : Quest
+public class ContentQuest
 {
     public string title;
     public string goal;

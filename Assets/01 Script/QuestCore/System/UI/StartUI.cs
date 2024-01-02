@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StartUI : Target<UIManager>
+public class StartUI : MonoBehaviour
 {
 
     public Image panel;
@@ -28,12 +28,21 @@ public class StartUI : Target<UIManager>
         panelButton = transform.Find("Panel/Button").GetComponent<Image>();
         buttonText = transform.Find("Panel/Button/Text").GetComponent<TextMeshProUGUI>();
 
+    }
+
+    private void Start()
+    {
         StartCoroutine(StartShowRoutine());
     }
 
-
     private IEnumerator StartShowRoutine()
     {
+        
+        yield return new WaitForSeconds(1f);
+        ParticleManager.Instance.MakeParticle( new Vector3(0, 0, -9.48f),"StartParticle", 7f);
+
+        yield return new WaitForSeconds(6f);
+        
         float percent = 0;
 
         Vector3 currentPanelPos = panel.transform.position;
@@ -52,7 +61,7 @@ public class StartUI : Target<UIManager>
         
         float percent1 = 0;
 
-        Vector3 currentTitlePos = panelTitle.transform.position + Vector3.down * 50;
+        Vector3 currentTitlePos = panelTitle.transform.position + Vector3.down * 10;
         Vector3 endTitlePos = panelTitle.transform.position;
         
         while (percent1 <= 1)
@@ -66,7 +75,7 @@ public class StartUI : Target<UIManager>
         
         float percent2 = 0;
 
-        Vector3 currentButtonPos = panelButton.transform.position + Vector3.down * 50;
+        Vector3 currentButtonPos = panelButton.transform.position + Vector3.down * 10;
         Vector3 endButtonPos = panelButton.transform.position;
         
         while (percent2 <= 1)
@@ -83,27 +92,14 @@ public class StartUI : Target<UIManager>
         
     }
 
-    public override void Start()
-    {
-        base.Start();
-    }
 
-    public override void Init()
-    {
-        
-    }
-
-    public override void Stop()
-    {
-        
-    }
 
     public void GameStart()
     {
         IEnumerator PanelRectRoutine()
         {
             Vector3 startPosition = panel.transform.position;
-            Vector3 endPosition = startPosition + panel.GetComponent<RectTransform>().rect.height * Vector3.up;
+            Vector3 endPosition = startPosition + Vector3.up * 10;
 
             float percent = 0;
 
