@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
             1 << LayerMask.NameToLayer("Ground"));
         if (!ray)
         {
-            //animator.SetTrigger("down");
+            animator.SetTrigger("down");
         }
         if (Input.GetKeyDown(KeyCode.Space) && ray)
         {
