@@ -3,14 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StartUI : Target<UIManager>
 {
 
-    public Transform panel;
+    public Image panel;
 
     public TextMeshProUGUI panelTitle;
-    public Transform panelButton;
+    public Image panelButton;
     public TextMeshProUGUI buttonText;
     
 
@@ -22,13 +23,14 @@ public class StartUI : Target<UIManager>
 
     private void Awake()
     {
-        panel = transform.Find("Panel");
+        panel = transform.Find("Panel").GetComponent<Image>();
         panelTitle = transform.Find("Panel/Title").GetComponent<TextMeshProUGUI>();
-        panelButton = transform.Find("Panel/Button");
+        panelButton = transform.Find("Panel/Button").GetComponent<Image>();
         buttonText = transform.Find("Panel/Button/Text").GetComponent<TextMeshProUGUI>();
 
         StartCoroutine(StartShowRoutine());
     }
+
 
     private IEnumerator StartShowRoutine()
     {
@@ -36,6 +38,8 @@ public class StartUI : Target<UIManager>
 
         Vector3 currentPanelPos = panel.transform.position;
         Vector3 endPanelPos = transform.position;
+        panel.color = Color.white;
+        
         
         while (percent <= 1)
         {
@@ -67,8 +71,9 @@ public class StartUI : Target<UIManager>
         
         while (percent2 <= 1)
         {
-            buttonText.transform.position = Vector3.Lerp(currentButtonPos, endButtonPos, titleMoveCurve.Evaluate(percent2));
-            panelTitle.color = Color.Lerp(Color.clear, Color.black, titleMoveCurve.Evaluate(percent2));
+            panelButton.transform.position = Vector3.Lerp(currentButtonPos, endButtonPos, titleMoveCurve.Evaluate(percent2));
+            buttonText.color = Color.Lerp(Color.clear, Color.black, titleMoveCurve.Evaluate(percent2));
+            panelButton.color = Color.Lerp(Color.clear, Color.white, titleMoveCurve.Evaluate(percent2));
             
             percent2 += Time.deltaTime / titleMoveTime;
             yield return null;
@@ -91,6 +96,33 @@ public class StartUI : Target<UIManager>
     public override void Stop()
     {
         
+    }
+
+    public void GameStart()
+    {
+        IEnumerator PanelRectRoutine()
+        {
+            Vector3 startPosition = panel.transform.position;
+            Vector3 endPosition = startPosition + panel.GetComponent<RectTransform>().rect.height * Vector3.up;
+
+            float percent = 0;
+
+            while (percent <= 1)
+            {
+                panel.transform.position = Vector3.Lerp(startPosition, endPosition, showMoveCurve.Evaluate(percent));
+                panel.color = Color.Lerp(Color.white, Color.clear, showMoveCurve.Evaluate(percent));
+                panelTitle.color = Color.Lerp(Color.black, Color.clear, showMoveCurve.Evaluate(percent));
+                buttonText.color = Color.Lerp(Color.black, Color.clear, showMoveCurve.Evaluate(percent));
+                panelButton.color = Color.Lerp(Color.white, Color.clear, showMoveCurve.Evaluate(percent));
+                
+                percent += Time.deltaTime / moveTime;
+                yield return null;
+            }
+
+
+        }
+        
+        StartCoroutine(PanelRectRoutine());
     }
     
     
