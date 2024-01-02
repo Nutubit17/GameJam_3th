@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rigid;
     private Animator animator;
     private SpriteRenderer sprite;
+    private TrailRenderer trail;
 
     public RaycastHit2D ray;
 
@@ -18,12 +19,14 @@ public class Player : MonoBehaviour
     public int jumpPower;
 
     private float dir;
+    private bool jumpCheck;
     public void Awake()
     {
         boxCollider = GetComponent<BoxCollider2D>();
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        trail = GetComponent<TrailRenderer>();
         StartCoroutine(MoveRoutine());
         currentSpeed = normalSpeed;
     }
@@ -34,37 +37,47 @@ public class Player : MonoBehaviour
         {
             dir = Input.GetAxisRaw("Horizontal");
             rigid.velocity = new Vector3(dir * normalSpeed, rigid.velocity.y);
-            
-            if (dir != 0)
-            {
-                animator.SetBool("isRun", true);
-                if (dir == 1)
-                    sprite.flipX = false;
-                else
-                    sprite.flipX = true;
-            }
-            else
-                animator.SetBool("isRun", false);
+
+            Run();
             Jump();
             StartCoroutine(Dash());
-            Dash();
             yield return null;
         }
+    }
+
+    public void Run()
+    {
+        if (dir != 0)
+        {
+            animator.SetBool("isRun", true);
+            if (dir == 1)
+                sprite.flipX = false;
+            else
+                sprite.flipX = true;
+        }
+        else
+            animator.SetBool("isRun", false);
     }
 
     public void Jump()
     {
         ray = Physics2D.Raycast(boxCollider.bounds.min + Vector3.down*0.1f, Vector2.right, boxCollider.bounds.extents.x * 2, 
             1 << LayerMask.NameToLayer("Ground"));
-        if (!ray)
+        if (!ray && jumpCheck ==false)
         {
             animator.SetTrigger("down");
         }
         if (Input.GetKeyDown(KeyCode.Space) && ray)
         {
+            jumpCheck = true;
             animator.SetTrigger("jump");
             rigid.velocity = new Vector3(rigid.velocity.x, jumpPower);
         }
+    }
+
+    public void JumpCheck()
+    {
+        jumpCheck = false;
     }
 
     public IEnumerator Dash()
