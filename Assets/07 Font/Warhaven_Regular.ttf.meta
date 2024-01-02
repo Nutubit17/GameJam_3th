@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: d6c378dc4414119498755744368042df
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Warhaven
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: f2447c02f7b38314dbfd4578905d3cff, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
