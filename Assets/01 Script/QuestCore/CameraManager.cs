@@ -11,4 +11,7 @@ public class CameraManager : MonoBehaviour
     {
         Instance = this;
     }
+    
+    
+    
 }
