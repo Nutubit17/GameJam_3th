@@ -88,8 +88,6 @@ public class StartUI : MonoBehaviour
             yield return null;
         }
         
-        
-        
     }
 
 
