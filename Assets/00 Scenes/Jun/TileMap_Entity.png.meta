@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c20e3d6a0b400e84d8a03f182fdba9dc
+guid: 87a04465bd750f747b727b8020412970
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -106,7 +106,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -117,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BoomAnimation_0
+      name: TileMap_Entity_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 96
-        width: 32
-        height: 32
+        y: 2
+        width: 48
+        height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1c37ff0c119b9e04e847a648e8a2fdc6
-      internalID: 993260340
+      spriteID: f9bc510bf0930604096f994493d27791
+      internalID: -1024449931
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BoomAnimation_1
+      name: TileMap_Entity_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 96
-        width: 32
-        height: 32
+        x: 48
+        y: 0
+        width: 15
+        height: 6
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2a53510421f990c47b28d4aefd7ede0c
-      internalID: 357758188
+      spriteID: 082a91519ef45f040a923858c075b47b
+      internalID: -625736067
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BoomAnimation_2
+      name: TileMap_Entity_2
       rect:
         serializedVersion: 2
-        x: 64
-        y: 96
-        width: 32
-        height: 32
+        x: 68
+        y: 0
+        width: 10
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,20 +173,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 698559b7ca69b2849a664ad5a0c47f1c
-      internalID: -1222298803
+      spriteID: 12815856b1f48f24a8e666bcbba70a09
+      internalID: 1766457119
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BoomAnimation_3
+      name: TileMap_Entity_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
-        width: 32
-        height: 32
+        x: 84
+        y: 0
+        width: 23
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,20 +194,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b1c95dd53bce4f54fb6fe9e4a2939f3d
-      internalID: -932505267
+      spriteID: 0f022e2d9f7f599449f536ce12858b57
+      internalID: 881915916
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BoomAnimation_4
+      name: TileMap_Entity_4
       rect:
         serializedVersion: 2
-        x: 32
-        y: 64
-        width: 32
-        height: 32
+        x: 113
+        y: 0
+        width: 13
+        height: 11
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,20 +215,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6c2f029544b49be4eac319ddf7014baa
-      internalID: -354987261
+      spriteID: c4a1a39698e80e3409e6b3e0f82e763e
+      internalID: 1071882306
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BoomAnimation_5
+      name: TileMap_Entity_5
       rect:
         serializedVersion: 2
-        x: 64
-        y: 64
-        width: 32
-        height: 32
+        x: 131
+        y: 0
+        width: 10
+        height: 9
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -236,20 +236,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fa050d99c99a07c428d7f68566d3b94a
-      internalID: -1544772389
+      spriteID: 5839e2d898bbf234098c4310bba4fe6d
+      internalID: 1847536611
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BoomAnimation_6
+      name: TileMap_Entity_6
       rect:
         serializedVersion: 2
-        x: 0
-        y: 32
-        width: 32
-        height: 32
+        x: 150
+        y: 0
+        width: 24
+        height: 11
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -257,20 +257,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9c53949662307884287b6ec888722928
-      internalID: 1718776313
+      spriteID: a9a3584467c256647973a76ebebca95c
+      internalID: 1245052044
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BoomAnimation_7
+      name: TileMap_Entity_7
       rect:
         serializedVersion: 2
-        x: 32
-        y: 32
-        width: 32
-        height: 32
+        x: 180
+        y: 0
+        width: 10
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -278,29 +278,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9545d214a8ebb2a4bb42e5323dbad3a5
-      internalID: 1923835083
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BoomAnimation_8
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d16bf18d007d4454882d26dd1b8b6816
-      internalID: -1506674184
+      spriteID: 66e2ce1ae25ccd54990aabc6b8a2cb8d
+      internalID: -216462130
       vertices: []
       indices: 
       edges: []
@@ -316,15 +295,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      BoomAnimation_0: 993260340
-      BoomAnimation_1: 357758188
-      BoomAnimation_2: -1222298803
-      BoomAnimation_3: -932505267
-      BoomAnimation_4: -354987261
-      BoomAnimation_5: -1544772389
-      BoomAnimation_6: 1718776313
-      BoomAnimation_7: 1923835083
-      BoomAnimation_8: -1506674184
+      TileMap_Entity_0: -1024449931
+      TileMap_Entity_1: -625736067
+      TileMap_Entity_2: 1766457119
+      TileMap_Entity_3: 881915916
+      TileMap_Entity_4: 1071882306
+      TileMap_Entity_5: 1847536611
+      TileMap_Entity_6: 1245052044
+      TileMap_Entity_7: -216462130
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

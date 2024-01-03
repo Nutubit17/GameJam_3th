@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c20e3d6a0b400e84d8a03f182fdba9dc
+guid: 30b90b76a6372194d914e40687cb7d96
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -106,7 +106,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -117,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BoomAnimation_0
+      name: Entity_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 96
-        width: 32
-        height: 32
+        y: 16
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1c37ff0c119b9e04e847a648e8a2fdc6
-      internalID: 993260340
+      spriteID: 3f6e23ae545e6cb4b8b01e662fa3ed59
+      internalID: 299731999
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BoomAnimation_1
+      name: Entity_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 96
-        width: 32
-        height: 32
+        x: 16
+        y: 16
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,41 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2a53510421f990c47b28d4aefd7ede0c
-      internalID: 357758188
+      spriteID: 4b351ae81e2b52e4d8b07e8610879c1b
+      internalID: -657758051
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BoomAnimation_2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 96
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 698559b7ca69b2849a664ad5a0c47f1c
-      internalID: -1222298803
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BoomAnimation_3
+      name: Entity_2
       rect:
         serializedVersion: 2
         x: 0
-        y: 64
-        width: 32
-        height: 32
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,20 +173,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b1c95dd53bce4f54fb6fe9e4a2939f3d
-      internalID: -932505267
+      spriteID: 75a99ca6227583544b8d93ceb9b91b21
+      internalID: -433741802
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BoomAnimation_4
+      name: Entity_3
       rect:
         serializedVersion: 2
-        x: 32
-        y: 64
-        width: 32
-        height: 32
+        x: 16
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,92 +194,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6c2f029544b49be4eac319ddf7014baa
-      internalID: -354987261
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BoomAnimation_5
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 64
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fa050d99c99a07c428d7f68566d3b94a
-      internalID: -1544772389
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BoomAnimation_6
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9c53949662307884287b6ec888722928
-      internalID: 1718776313
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BoomAnimation_7
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9545d214a8ebb2a4bb42e5323dbad3a5
-      internalID: 1923835083
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BoomAnimation_8
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d16bf18d007d4454882d26dd1b8b6816
-      internalID: -1506674184
+      spriteID: ad5570b79d3955347a9ad091da4c5c08
+      internalID: 369364197
       vertices: []
       indices: 
       edges: []
@@ -316,15 +211,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      BoomAnimation_0: 993260340
-      BoomAnimation_1: 357758188
-      BoomAnimation_2: -1222298803
-      BoomAnimation_3: -932505267
-      BoomAnimation_4: -354987261
-      BoomAnimation_5: -1544772389
-      BoomAnimation_6: 1718776313
-      BoomAnimation_7: 1923835083
-      BoomAnimation_8: -1506674184
+      Entity_0: 299731999
+      Entity_1: -657758051
+      Entity_2: -433741802
+      Entity_3: 369364197
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
