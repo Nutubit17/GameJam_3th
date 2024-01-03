@@ -13,13 +13,26 @@ public class Player : MonoBehaviour
 
     public RaycastHit2D ray;
 
-    [System.NonSerialized]public int currentSpeed = 2;
+    [System.NonSerialized]
+    public int currentSpeed = 2;
     public int dashSpeed = 7;
     public int normalSpeed = 2;
+
+    [System.NonSerialized]
+    public int currentDir = 1;
+    [System.NonSerialized]
+    public int dashDir = 1;
+    public float dashTime;
+    public float dashCoolTime;
+
     public int jumpPower;
 
+    [System.NonSerialized]
+    public bool jumpCheck;
+    public bool onDash;
+    public bool isDash = false;
+
     private float dir;
-    private bool jumpCheck;
     public void Awake()
     {
         boxCollider = GetComponent<BoxCollider2D>();
@@ -28,6 +41,7 @@ public class Player : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         trail = GetComponent<TrailRenderer>();
         StartCoroutine(MoveRoutine());
+        StartCoroutine(DashRoutine());
         currentSpeed = normalSpeed;
     }
 
@@ -36,11 +50,22 @@ public class Player : MonoBehaviour
         while(true)
         {
             dir = Input.GetAxisRaw("Horizontal");
-            rigid.velocity = new Vector3(dir * normalSpeed, rigid.velocity.y);
+            currentDir = sprite.flipX == true ? -1: 1;
 
-            Run();
-            Jump();
-            StartCoroutine(Dash());
+            if (!isDash)
+            {
+                rigid.velocity = new Vector3(dir * currentSpeed, rigid.velocity.y);
+
+                Run();
+                Jump();
+            }
+            else
+            {
+                rigid.velocity = new Vector3(dashDir * currentSpeed, rigid.velocity.y);
+            }
+
+
+
             yield return null;
         }
     }
@@ -80,15 +105,28 @@ public class Player : MonoBehaviour
         jumpCheck = false;
     }
 
-    public IEnumerator Dash()
+    public IEnumerator DashRoutine()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        while (true)
         {
-            normalSpeed = dashSpeed;
-            yield return new WaitForSeconds(0.5f);
-            normalSpeed = currentSpeed;
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                if (onDash)
+                    yield return null;
+                currentSpeed = dashSpeed;
+                dashDir = currentDir;
+                isDash = true;
+
+                yield return new WaitForSeconds(dashTime);
+                currentSpeed = normalSpeed;
+                isDash = false;
+                yield return new WaitForSeconds(dashCoolTime- dashTime);
+                onDash = false;
+            }
+            yield return null;
         }
     }
+
 
     
 }

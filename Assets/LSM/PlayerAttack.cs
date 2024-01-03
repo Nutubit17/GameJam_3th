@@ -40,6 +40,8 @@ public class PlayerAttack : MonoBehaviour
         {
             if (jAttackCheck)
                 return;
+            player.jumpCheck = true;
+            Debug.Log(1);
             StartCoroutine(JAttackDelayTime());
         }
 
