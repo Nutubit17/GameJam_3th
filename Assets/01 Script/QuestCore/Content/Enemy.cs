@@ -22,11 +22,21 @@ public enum EnmeyCondetiion
 [RequireComponent(typeof(Rigidbody2D))]
 public class Enemy : MonoBehaviour
 {
+
+#if UNITY_EDITOR
+    [SerializeField] bool gizmoOn = true;
+    [Space]
+
+#endif
+
+    public GameObject poly;
+
     private Player _player;
     private PolygonCollider2D polygonCollider;
     private Rigidbody2D rigid;
     private Animator animator;
     private CapsuleCollider2D capsuleCollider;
+    private SpriteRenderer sprite;
 
 
     public EnmeyName enemyType;
@@ -65,7 +75,7 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         _player = Player.Instance;
-
+        sprite = GetComponent<SpriteRenderer>();
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
@@ -80,6 +90,7 @@ public class Enemy : MonoBehaviour
         StartCoroutine(JumpRoutine());
         StartCoroutine(Attack());
     }
+
 
     IEnumerator MoveRoutine()
     {
@@ -100,9 +111,11 @@ public class Enemy : MonoBehaviour
 
 
             if (moveDir == -1)
-                transform.localScale = new Vector3(-1, 1, 1);
+                sprite.flipX = true;
             else if (moveDir == 1)
-                transform.localScale = new Vector3(1, 1, 1);
+                sprite.flipX = false;
+
+            poly.transform.localScale = new Vector3((sprite.flipX == true ? -1 : 1), 1, 1);
 
             if (moveDir != 0)
             {
@@ -196,7 +209,7 @@ public class Enemy : MonoBehaviour
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        if (Selection.activeGameObject == gameObject)
+        if (Selection.activeGameObject == gameObject && gizmoOn)
         {
             Color currentColor = Gizmos.color;
             Gizmos.color = moveRangeGizmoColor2;
