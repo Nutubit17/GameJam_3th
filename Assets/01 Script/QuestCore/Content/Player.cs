@@ -5,17 +5,32 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public SpriteRenderer sprite;
     private BoxCollider2D boxCollider;
     private Rigidbody2D rigid;
     private Animator animator;
-    private SpriteRenderer sprite;
+    private TrailRenderer trail;
 
     public RaycastHit2D ray;
 
-    [System.NonSerialized]public int currentSpeed = 2;
+    [System.NonSerialized]
+    public int currentSpeed = 2;
     public int dashSpeed = 7;
     public int normalSpeed = 2;
+
+    [System.NonSerialized]
+    public int currentDir = 1;
+    [System.NonSerialized]
+    public int dashDir = 1;
+    public float dashTime;
+    public float dashCoolTime;
+
     public int jumpPower;
+
+    [System.NonSerialized]
+    public bool jumpCheck;
+    public bool onDash;
+    public bool isDash = false;
 
     private float dir;
     public void Awake()
@@ -24,7 +39,9 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        trail = GetComponent<TrailRenderer>();
         StartCoroutine(MoveRoutine());
+        StartCoroutine(DashRoutine());
         currentSpeed = normalSpeed;
     }
 
@@ -33,49 +50,83 @@ public class Player : MonoBehaviour
         while(true)
         {
             dir = Input.GetAxisRaw("Horizontal");
-            rigid.velocity = new Vector3(dir * normalSpeed, rigid.velocity.y);
-            
-            if (dir != 0)
+            currentDir = sprite.flipX == true ? -1: 1;
+
+            if (!isDash)
             {
-                animator.SetBool("isRun", true);
-                if (dir == 1)
-                    sprite.flipX = false;
-                else
-                    sprite.flipX = true;
+                rigid.velocity = new Vector3(dir * currentSpeed, rigid.velocity.y);
+
+                Run();
+                Jump();
             }
             else
-                animator.SetBool("isRun", false);
-            Jump();
-            StartCoroutine(Dash());
-            Dash();
+            {
+                rigid.velocity = new Vector3(dashDir * currentSpeed, rigid.velocity.y);
+            }
+
+
+
             yield return null;
         }
     }
 
+    public void Run()
+    {
+        if (dir != 0)
+        {
+            animator.SetBool("isRun", true);
+            if (dir == 1)
+                sprite.flipX = false;
+            else
+                sprite.flipX = true;
+        }
+        else
+            animator.SetBool("isRun", false);
+    }
+
     public void Jump()
     {
-        ray = Physics2D.Raycast(boxCollider.bounds.min + Vector3.down*0.1f, Vector2.right, boxCollider.bounds.extents.x * 2, 
+        ray = Physics2D.Raycast(boxCollider.bounds.min + Vector3.down*0.3f, Vector2.right, boxCollider.bounds.extents.x * 2, 
             1 << LayerMask.NameToLayer("Ground"));
-        if (!ray)
+        if (!ray && jumpCheck ==false)
         {
             animator.SetTrigger("down");
         }
         if (Input.GetKeyDown(KeyCode.Space) && ray)
         {
+            jumpCheck = true;
             animator.SetTrigger("jump");
             rigid.velocity = new Vector3(rigid.velocity.x, jumpPower);
         }
     }
 
-    public IEnumerator Dash()
+    public void JumpCheck()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        jumpCheck = false;
+    }
+
+    public IEnumerator DashRoutine()
+    {
+        while (true)
         {
-            normalSpeed = dashSpeed;
-            yield return new WaitForSeconds(0.5f);
-            normalSpeed = currentSpeed;
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                if (onDash)
+                    yield return null;
+                currentSpeed = dashSpeed;
+                dashDir = currentDir;
+                isDash = true;
+
+                yield return new WaitForSeconds(dashTime);
+                currentSpeed = normalSpeed;
+                isDash = false;
+                yield return new WaitForSeconds(dashCoolTime- dashTime);
+                onDash = false;
+            }
+            yield return null;
         }
     }
+
 
     
 }

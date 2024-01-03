@@ -7,6 +7,9 @@ public class PlayerAttack : MonoBehaviour
 
     private Player player;
     private Animator animator;
+    private PolygonCollider2D polyCollider;
+    public  BoxCollider2D boxCollider;
+    public  GameObject polyDir;
 
     public int attackCoolTime;
     public int pAttackCoolTime;
@@ -20,6 +23,7 @@ public class PlayerAttack : MonoBehaviour
     {
         player = GetComponent<Player>();
         animator = GetComponent<Animator>();
+        polyCollider = GetComponentInChildren<PolygonCollider2D>();
     }
     private void Update()
     {
@@ -27,7 +31,7 @@ public class PlayerAttack : MonoBehaviour
     }
     public void Attak()
     {
-       
+        polyDir.transform.localScale =  new Vector3(player.sprite.flipX == true ? -1:1,1,1);
         if (Input.GetMouseButtonDown(0) && player.ray)
         {
             if (attackCheck)
@@ -40,6 +44,7 @@ public class PlayerAttack : MonoBehaviour
         {
             if (jAttackCheck)
                 return;
+            player.jumpCheck = true;
             StartCoroutine(JAttackDelayTime());
         }
 
@@ -55,6 +60,7 @@ public class PlayerAttack : MonoBehaviour
     {
         attackCheck = true;
         animator.SetTrigger("attack");
+        polyCollider.enabled = true;
         yield return new WaitForSeconds(attackCoolTime);
         attackCheck = false;
     }
@@ -63,6 +69,7 @@ public class PlayerAttack : MonoBehaviour
     {
         pAttackCheck = true;
         animator.SetTrigger("powerAttack");
+        boxCollider.enabled = true;
         yield return new WaitForSeconds(pAttackCoolTime);
         pAttackCheck = false;
     }
@@ -71,7 +78,18 @@ public class PlayerAttack : MonoBehaviour
     {
         jAttackCheck = true;
         animator.SetTrigger("jumpAttack");
+        polyCollider.enabled = true;
         yield return new WaitForSeconds(jAttackCoolTime);
         jAttackCheck = false;
+    }
+
+    public void PolyColliderOff()
+    {
+        polyCollider.enabled = false;
+    }
+
+    public void BoxColliderOff()
+    {
+        boxCollider.enabled = false;
     }
 }
