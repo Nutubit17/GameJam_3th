@@ -47,6 +47,6 @@ Material:
     - _Rate: 0
     - _Size: 10
     m_Colors:
-    - _Size: {r: 5, g: 10, b: 0, a: 0}
+    - _Size: {r: 10, g: 10, b: 0, a: 0}
     - _convexRemap: {r: 0, g: 15, b: 0, a: 0}
   m_BuildTextureStacks: []

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance;
+
     public SpriteRenderer sprite;
     private BoxCollider2D boxCollider;
     private Rigidbody2D rigid;
@@ -35,6 +37,8 @@ public class Player : MonoBehaviour
     private float dir;
     public void Awake()
     {
+        Instance = this;
+
         boxCollider = GetComponent<BoxCollider2D>();
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
