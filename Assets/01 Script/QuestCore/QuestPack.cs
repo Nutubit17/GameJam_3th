@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -13,9 +12,6 @@ public class QuestPack : MonoBehaviour
     
     private void Awake()
     {
-        TimeController.questPack = Instance;
-        
-        controlTest.TryTimeControl();
         
     }
 }

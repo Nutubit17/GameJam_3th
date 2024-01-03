@@ -41,7 +41,7 @@ public class StartUI : MonoBehaviour
         yield return new WaitForSeconds(1f);
         ParticleManager.Instance.MakeParticle( new Vector3(0, 0, -9.48f),"StartParticle", 7f);
 
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(3f);
         
         float percent = 0;
 
