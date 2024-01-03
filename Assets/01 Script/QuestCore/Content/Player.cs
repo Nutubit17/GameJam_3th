@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public SpriteRenderer sprite;
     private BoxCollider2D boxCollider;
     private Rigidbody2D rigid;
     private Animator animator;
-    private SpriteRenderer sprite;
     private TrailRenderer trail;
 
     public RaycastHit2D ray;
@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
 
     public void Jump()
     {
-        ray = Physics2D.Raycast(boxCollider.bounds.min + Vector3.down*0.1f, Vector2.right, boxCollider.bounds.extents.x * 2, 
+        ray = Physics2D.Raycast(boxCollider.bounds.min + Vector3.down*0.3f, Vector2.right, boxCollider.bounds.extents.x * 2, 
             1 << LayerMask.NameToLayer("Ground"));
         if (!ray && jumpCheck ==false)
         {
