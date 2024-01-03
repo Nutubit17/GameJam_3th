@@ -137,7 +137,7 @@ public class Player : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            Enemy enemy = collision.GetComponentInParent<Enemy>();
+            Enemy enemy = collision.GetComponent<Enemy>();
 
             Vector2 dirVector = Mathf.Sign(enemy.transform.position.x - transform.position.x) * Vector2.right;
 
@@ -145,6 +145,14 @@ public class Player : MonoBehaviour
             enemy.KnockBack(dirVector.normalized, force, 0.3f);
             ParticleManager.Instance.MakeParticle(enemy.transform.position, "Slash", 5f);
 
+        }
+        else if(collision.CompareTag("Poly"))
+        {
+            if (!isDash)
+            {
+                Enemy enemy = collision.GetComponentInParent<Enemy>();
+                UIManager.instance.Hpdown(enemy.damage);
+            }
         }
     }
 
