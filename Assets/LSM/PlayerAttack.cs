@@ -11,7 +11,7 @@ public class PlayerAttack : MonoBehaviour
     public  BoxCollider2D boxCollider;
     public  GameObject polyDir;
 
-    public int attackCoolTime;
+    public float attackCoolTime;
     public int pAttackCoolTime;
     public int jAttackCoolTime;
 
