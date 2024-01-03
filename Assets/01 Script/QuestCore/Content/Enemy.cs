@@ -30,29 +30,33 @@ public class Enemy : MonoBehaviour
 #endif
 
     public GameObject poly;
-
     private Player _player;
     private PolygonCollider2D polygonCollider;
-    private Rigidbody2D rigid;
+    public Rigidbody2D rigid;
     private Animator animator;
     private CapsuleCollider2D capsuleCollider;
     private SpriteRenderer sprite;
+    private HpGauge hpGauge;
 
 
     public EnmeyName enemyType;
     public float normalRecognitionRange;
     public float stressRecgnitionRange;
     public float attackRange;
+    public float attackCoolTime;
     public bool isOntantion;
 
-    public int hp;
+    public int maxHp;
+    public int currentHp;
     public int damage;
     public int speed;
     public int jumpPower;
 
+
     private bool jumpCheck;
     private bool isAttack;
-    private int moveDir;
+    private bool isOnKnockBack;
+    private float moveDir;
 
     private RaycastHit2D ray;
     private RaycastHit2D ray2;
@@ -80,7 +84,7 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         polygonCollider = GetComponentInChildren<PolygonCollider2D>();
-
+        hpGauge = GetComponentInChildren<HpGauge>();
 
     }
     public void OnEnable()
@@ -96,7 +100,7 @@ public class Enemy : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitUntil(() => !isAttack);
+            yield return new WaitUntil(() => !isAttack || !isOnKnockBack);
 
             yield return new WaitForSeconds(2f);
             moveDir = Random.Range(-1, 2);
@@ -115,7 +119,6 @@ public class Enemy : MonoBehaviour
             else if (moveDir == 1)
                 sprite.flipX = false;
 
-            poly.transform.localScale = new Vector3((sprite.flipX == true ? -1 : 1), 1, 1);
 
             if (moveDir != 0)
             {
@@ -125,10 +128,8 @@ public class Enemy : MonoBehaviour
                 animator.SetBool("run", false);
 
 
-
         }
     }
-
 
 
     public IEnumerator Attack()
@@ -140,26 +141,33 @@ public class Enemy : MonoBehaviour
                 if ((_player.transform.position - transform.position).x >= 0)
                 {
                     moveDir = 1;
-                    transform.localScale = Vector3.one;
+                    sprite.flipX = false;
                 }
                 else
                 {
                     moveDir = -1;
-                    transform.localScale = new Vector3(-1, 1, 1);
+                    sprite.flipX = true;
                 }
-                if((_player.transform.position - transform.position).sqrMagnitude <= attackRange)
+                poly.transform.localScale = new Vector3((sprite.flipX == true ? -1 : 1), 1, 1);
+                if ((_player.transform.position - transform.position).sqrMagnitude <= attackRange)
                 {
                     isAttack = true;
+                    
                     animator.SetTrigger("attack");
-                    polygonCollider.enabled = true;
-                    moveDir = 0;
+                    moveDir = 0.002f;
                 }
 
                 yield return new WaitUntil(() => !isAttack);
+                yield return new WaitForSeconds(attackCoolTime);
             }
 
             yield return null;
         }
+    }
+    public void AttackOn()
+    {
+        polygonCollider.enabled = true;
+
     }
 
     public void AttackOff()
@@ -172,8 +180,13 @@ public class Enemy : MonoBehaviour
     {
         while (true)
         {
-            rigid.velocity = new Vector2(moveDir * speed, rigid.velocity.y);
+            if(isAttack || isOnKnockBack)
+            {
+                moveDir = 0;
+                yield return new WaitUntil(() => !(isAttack || isOnKnockBack));
+            }
 
+            rigid.velocity = new Vector2(moveDir * speed, rigid.velocity.y);
             yield return null;
         }
     }
@@ -182,7 +195,7 @@ public class Enemy : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitUntil(() => !isAttack);
+            yield return new WaitUntil(() => !isAttack || !isOnKnockBack);
 
             ray = Physics2D.Raycast(capsuleCollider.bounds.min + Vector3.down * 0.3f, Vector2.right, capsuleCollider.bounds.extents.x * 2,
                 1 << LayerMask.NameToLayer("Ground"));
@@ -205,6 +218,36 @@ public class Enemy : MonoBehaviour
         return new Vector3(Mathf.InverseLerp(target0.x, target1.x, target2.x), Mathf.InverseLerp(target0.y, target1.y, target2.y)
             ,Mathf.InverseLerp(target0.z, target1.z, target2.z));
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            //Debug.Log(1);
+        }
+    }
+
+    public void HpDown(int damage)
+    {
+        hpGauge.Rate -= (float)damage/maxHp;
+    }
+
+    public void KnockBack(Vector2 dir, float forceScale, float knockBackTime = 1f)
+    {
+        StartCoroutine(KnockBackRoutine(dir, forceScale, knockBackTime));
+    }
+
+    private IEnumerator KnockBackRoutine(Vector2 dir, float forceScale, float knockBackTime = 1f)
+    {
+        isOnKnockBack = true;
+
+        yield return null;
+        rigid.velocity += dir * forceScale;
+        yield return new WaitForSeconds(knockBackTime);
+
+        isOnKnockBack = false;
+    }
+
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()

@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     public int currentSpeed = 2;
     public int dashSpeed = 7;
     public int normalSpeed = 2;
+    public int damage = 2;
+    public int force = 5;
 
     [System.NonSerialized]
     public int currentDir = 1;
@@ -131,6 +133,19 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            Enemy enemy = collision.GetComponentInParent<Enemy>();
 
-    
+            Vector2 dirVector = Mathf.Sign(enemy.transform.position.x - transform.position.x) * Vector2.right;
+
+            enemy.HpDown(damage);
+            enemy.KnockBack(dirVector.normalized, force, 0.3f);
+            ParticleManager.Instance.MakeParticle(enemy.transform.position, "Slash", 5f);
+
+        }
+    }
+
 }
