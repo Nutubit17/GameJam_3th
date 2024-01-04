@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class StageDescription : MonoBehaviour
 {
-    private float openTime = 2f;
-    private float closeTime = 3f;
+    [SerializeField] private float openTime = 2f;
+    [SerializeField] private float closeTime = 3f;
     
     public AnimationCurve openCurve;
     public AnimationCurve closeCurve;
@@ -21,7 +21,7 @@ public class StageDescription : MonoBehaviour
 
         while (percent <= 1)
         {
-            transform.localScale = new Vector3(1, 1, openCurve.Evaluate(percent));
+            transform.localScale = new Vector3(openCurve.Evaluate(percent),1, 1);
             
             percent += Time.deltaTime / openTime;
             yield return null;
@@ -40,14 +40,14 @@ public class StageDescription : MonoBehaviour
         while (percent <= 1)
         {
             
-            transform.localScale = new Vector3(1, 1, closeCurve.Evaluate(percent));
+            transform.localScale = new Vector3(closeCurve.Evaluate(Mathf.Lerp(1,0, percent)), 1,  1);
             
             percent += Time.deltaTime / closeTime;
             yield return null;
             
-            percent += Time.deltaTime;
-            yield return null;
         }
+
+        transform.localScale = new Vector3(0, 1, 1);
     }
 
 }

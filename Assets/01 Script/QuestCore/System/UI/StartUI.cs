@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -42,6 +43,13 @@ public class StartUI : MonoBehaviour
 
     private IEnumerator StartShowRoutine()
     {
+        DOTween.Sequence()
+            .Append(DOTween.To(() => CameraManager.Instance.main.backgroundColor,
+                value => CameraManager.Instance.main.backgroundColor = value
+                , Color.white / 6f, 0.3f))
+            .Append(DOTween.To(() => CameraManager.Instance.main.backgroundColor,
+                value => CameraManager.Instance.main.backgroundColor = value
+                , Color.black, 0.3f));
         
         yield return new WaitForSeconds(1f);
         ParticleManager.Instance.MakeParticle( new Vector3(0, 0, -9.48f),"StartParticle", 7f);

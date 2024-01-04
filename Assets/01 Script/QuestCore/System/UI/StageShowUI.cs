@@ -22,6 +22,7 @@ public class StageShowUI : MonoBehaviour
         text        = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         enemyImage1 = transform.GetChild(2).GetComponent<Image>();
         enemyImage2 = transform.GetChild(3).GetComponent<Image>();
+        stageDesc   = transform.GetChild(4).GetComponent<StageDescription>();
     }
 
     private IEnumerator fadeRoutine;
@@ -70,6 +71,12 @@ public class StageShowUI : MonoBehaviour
             percent += Time.deltaTime / fadeTime;
             yield return null;
         }
+
+        yield return new WaitForSeconds(2.5f);
+        stageDesc.Open();
+
+        yield return new WaitForSeconds(3.5f);
+        stageDesc.Close();
         
         fadeRoutine = null;
     }
