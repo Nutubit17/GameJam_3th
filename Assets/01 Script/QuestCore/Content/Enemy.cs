@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -38,6 +39,7 @@ public class Enemy : MonoBehaviour
     private SpriteRenderer sprite;
     private HpGauge hpGauge;
 
+    public Material enemyMat;
 
     public EnmeyName enemyType;
     public float normalRecognitionRange;
@@ -52,11 +54,15 @@ public class Enemy : MonoBehaviour
     public int speed;
     public int jumpPower;
 
+    public float moveDir;
+
 
     private bool jumpCheck;
     private bool isAttack;
     private bool isOnKnockBack;
-    public float moveDir;
+    private bool isDead;
+
+    private readonly int _RateHash = Shader.PropertyToID("_Rate");
 
     private RaycastHit2D ray;
     private RaycastHit2D ray2;
@@ -85,6 +91,7 @@ public class Enemy : MonoBehaviour
         polygonCollider = GetComponentInChildren<PolygonCollider2D>();
         hpGauge = GetComponentInChildren<HpGauge>();
 
+        currentHp = maxHp;
     }
 
     
@@ -92,7 +99,7 @@ public class Enemy : MonoBehaviour
     public void OnEnable()
     {
         _player = Player.Instance;
-
+        enemyMat = GetComponent<SpriteRenderer>().material;
         StartCoroutine(MoveRoutine());
         StartCoroutine(SetVelocityRoutine());
         StartCoroutine(JumpRoutine());
@@ -172,7 +179,7 @@ public class Enemy : MonoBehaviour
                 {
                     isAttack = true;
                     
-                    animator.SetTrigger("attack");
+                    animator?.SetTrigger("attack");
                     moveDir = 0.001f;
                 }
 
@@ -234,17 +241,10 @@ public class Enemy : MonoBehaviour
             ,Mathf.InverseLerp(target0.z, target1.z, target2.z));
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            
-        }
-    }
-
     public void HpDown(int damage)
     {
         hpGauge.Rate -= (float)damage/maxHp;
+        currentHp -= damage;
     }
 
     public void KnockBack(Vector2 dir, float forceScale, float knockBackTime = 1f)
@@ -263,6 +263,30 @@ public class Enemy : MonoBehaviour
         isOnKnockBack = false;
     }
 
+    public void Die()
+    {
+        if (isDead) return;
+
+        isDead = true;
+        StopAllCoroutines();
+        rigid.velocity = Vector2.zero;
+        animator.SetTrigger("die");
+    }
+
+    public void DieAniEnd()
+    {
+        StartCoroutine(DieRoutine());
+    }
+
+    public IEnumerator DieRoutine()
+    {
+        hpGauge.transform.DOScaleX(0, 1f);
+        yield return new WaitForSeconds(1f);
+        DOTween.To(() => enemyMat.GetFloat(_RateHash), x => enemyMat.SetFloat(_RateHash, x), 1f, 5f);
+        yield return new WaitForSeconds(0.5f);
+        Destroy(gameObject);
+        yield return null;
+    }
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
