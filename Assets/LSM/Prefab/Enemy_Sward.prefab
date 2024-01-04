@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1489277369429500375}
   - component: {fileID: 1489277369429500362}
   - component: {fileID: 1489277369429500363}
-  - component: {fileID: 3419206046344247239}
+  - component: {fileID: 1489277369429500360}
   m_Layer: 7
   m_Name: Enemy_Sward
   m_TagString: Enemy
@@ -28,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1489277369429500372}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 28.06, y: -16.54, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -149,7 +149,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &3419206046344247239
+--- !u!114 &1489277369429500360
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,33 +158,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 1489277369429500372}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 044b447edc41072499ef928b0ab4911f, type: 3}
+  m_Script: {fileID: 11500000, guid: 54b5c48aeeafd7847acb3c0b5e160364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gizmoOn: 1
   poly: {fileID: 1489277370865573575}
-  player: {fileID: 0}
   rigid: {fileID: 0}
   enemyMat: {fileID: 0}
   stateObject: {fileID: 1489277371377202348}
   enemyType: 0
-  normalRecognitionRange: 6
-  stressRecgnitionRange: 12
-  stressDurationTime: 2
+  normalRecognitionRange: 3
+  stressRecgnitionRange: 6
+  stressDurationTime: 1
   attackRange: 2
   attackCoolTime: 1
   isOntantion: 0
-  maxHp: 25
+<<<<<<< Updated upstream
+  maxHp: 10
+=======
+  maxHp: 20
+>>>>>>> Stashed changes
   currentHp: 0
   damage: 5
-  speed: 4
-  jumpPower: 4
+  speed: 5
+  jumpPower: 5
   moveDir: 0
   typeStress: 0
   typeNormal: 0
   enemyStateParticle: 0
-  startPos: {x: 10000, y: 10000, z: 0}
-  endPos: {x: -10000, y: -10000, z: 0}
+  startPos: {x: 0, y: 0, z: 0}
+  endPos: {x: 0, y: 0, z: 0}
   moveRangeGizmoColor: {r: 1, g: 1, b: 1, a: 1}
   moveRangeGizmoColor2: {r: 1, g: 1, b: 1, a: 1}
   normalRecogGizmoColor: {r: 0, g: 0, b: 1, a: 1}
@@ -533,7 +536,7 @@ GameObject:
   - component: {fileID: 1489277370865573625}
   m_Layer: 0
   m_Name: Poly
-  m_TagString: EnemyPoly
+  m_TagString: Poly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -658,9 +661,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8daccb1c9d909f84d8c3e648498a2202, type: 3}
-  m_Color: {r: 0.21549678, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
