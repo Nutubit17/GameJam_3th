@@ -1570,7 +1570,7 @@ MonoBehaviour:
   boxCollider: {fileID: 103346421}
   polyDir: {fileID: 103346418}
   attackCoolTime: 0.5
-  pAttackCoolTime: 1
+  pAttackCoolTime: 0.5
   jAttackCoolTime: 1
 --- !u!1 &694001145
 GameObject:
@@ -2249,7 +2249,7 @@ SpriteRenderer:
   m_Size: {x: 0.25, y: 0.25}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &952249847
@@ -2779,7 +2779,7 @@ SpriteRenderer:
   m_Size: {x: 0.5, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1262330505
@@ -3212,7 +3212,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 463213194, guid: 3b8321c477d148148b68b0bdd776becc, type: 3}
-  m_Type: 1
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
