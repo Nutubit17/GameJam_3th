@@ -20,6 +20,7 @@ public class CameraManager : MonoBehaviour
         
     }
 
+    private Sequence seq;
 
     public void CameraShake(float shakeScale = 1f, float randomness = 50f, int vibrato = 10, float time = 1f)
     {
@@ -31,7 +32,10 @@ public class CameraManager : MonoBehaviour
         
         virtualCamera.transform.parent.gameObject.SetActive(false);
 
-        DOTween.Sequence()
+        if(seq != null && seq.IsActive())
+            seq.Complete();
+        
+        seq = DOTween.Sequence()
             .Append(main.transform.DOShakePosition(time, shakeScale, vibrato, randomness,
                 randomnessMode: ShakeRandomnessMode.Harmonic))
             .AppendCallback(() =>
