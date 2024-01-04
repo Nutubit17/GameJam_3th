@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class StageShowUI : MonoBehaviour
 {
+    public static StageShowUI Instance;
+    
     public Image panel;
     public TextMeshProUGUI text;
     public Image enemyImage1;    
@@ -18,6 +20,8 @@ public class StageShowUI : MonoBehaviour
     
     private void Awake()
     {
+        Instance = this;
+        
         panel       = transform.GetChild(0).GetComponent<Image>();
         text        = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         enemyImage1 = transform.GetChild(2).GetComponent<Image>();

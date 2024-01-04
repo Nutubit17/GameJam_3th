@@ -24,6 +24,7 @@ public class StartUI : MonoBehaviour
 
     public StageShowUI stageShowUI;
     public GameObject startStage;
+    public GameObject playerUI;
 
     public bool isGameStarted;
     
@@ -135,13 +136,7 @@ public class StartUI : MonoBehaviour
         IEnumerator StageShowUIRoutine()
         {
             yield return new WaitForSeconds(moveTime);
-            stageShowUI.FadeOut();
-            startStage.SetActive(true);
-            CameraManager.Instance.ChangeTarget(Player.Instance.transform);
-            yield return new WaitForSeconds(stageShowUI.fadeTime + 1f);
-
-            stageShowUI.FadeIn();
-            
+            startStage.GetComponent<Stage>().CheckThisStage();
         }
         
         

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class StageDescription : MonoBehaviour
@@ -10,6 +12,17 @@ public class StageDescription : MonoBehaviour
     public AnimationCurve openCurve;
     public AnimationCurve closeCurve;
     
+    public TextMeshProUGUI questName;
+    public TextMeshProUGUI questDesc;
+    public TextMeshProUGUI hardness;
+
+    private void Awake()
+    {
+        questName = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        questDesc = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        hardness  = transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+    }
+
     public void Open()
     {
         StartCoroutine(OpenRoutine());

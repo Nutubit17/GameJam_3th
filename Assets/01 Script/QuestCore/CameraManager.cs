@@ -11,6 +11,8 @@ public class CameraManager : MonoBehaviour
     public static CameraManager Instance;
     public CinemachineVirtualCamera virtualCamera;
     public Camera main;
+
+    public Transform followTrm;
     
     public void Awake()
     {
@@ -20,35 +22,29 @@ public class CameraManager : MonoBehaviour
         
     }
 
-    private Sequence seq;
+    private void Start()
+    {
+        followTrm = virtualCamera.Follow;
+    }
 
     public void CameraShake(float shakeScale = 1f, float randomness = 50f, int vibrato = 10, float time = 1f)
     {
-        Vector3 currentPos = main.transform.position;
 
-        Transform currentFollow = virtualCamera.Follow.transform; 
         Vector3 forwardPos =  (virtualCamera.transform.position.z * Vector3.forward);
-        virtualCamera.Follow = null;
+        followTrm = virtualCamera.Follow; 
         
         virtualCamera.transform.parent.gameObject.SetActive(false);
 
-        if(seq != null && seq.IsActive())
-            seq.Complete();
-        
-        seq = DOTween.Sequence()
+        DOTween.Sequence()
             .Append(main.transform.DOShakePosition(time, shakeScale, vibrato, randomness,
                 randomnessMode: ShakeRandomnessMode.Harmonic))
-            .AppendCallback(() =>
-            {
-                Transform followTrm = currentFollow ?? Player.Instance.transform;
-                main.transform.DOMove( forwardPos + (Vector3)(Vector2)(followTrm.transform.position), 1f);
-            })
-            .AppendInterval(1f)
-            .AppendCallback(() =>
-            {
-                virtualCamera.transform.parent.gameObject.SetActive(true);
-                virtualCamera.Follow = currentFollow;
-            });
+            .AppendCallback(() => ResetFollowTrm(forwardPos));
+    }
+
+    private void ResetFollowTrm(Vector3 forwardPos)
+    {
+        virtualCamera.transform.parent.gameObject.SetActive(true);
+        main.transform.position = forwardPos + (Vector3)(Vector2)followTrm.position;
     }
 
     public void ChangeTarget(Transform trm)

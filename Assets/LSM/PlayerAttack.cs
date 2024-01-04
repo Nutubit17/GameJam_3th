@@ -45,7 +45,7 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator Attack()
     {
-
+        yield return null;
         while (true)
         {
             polyDir.transform.localScale = new Vector3(player.sprite.flipX == true ? -1 : 1, 1, 1);
@@ -70,6 +70,7 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator JAttack()
     {
+        yield return null;
         while (true)
         {
             polyDir.transform.localScale = new Vector3(player.sprite.flipX == true ? -1 : 1, 1, 1);
@@ -79,21 +80,6 @@ public class PlayerAttack : MonoBehaviour
                 animator?.SetTrigger("jumpAttack");
                 yield return new WaitUntil(() => !jAttackCheck);
                 yield return new WaitForSeconds(jAttackCoolTime);
-            }
-            yield return null;
-        }
-    }
-    IEnumerator PAttack()
-    {
-        while (true)
-        {
-            polyDir.transform.localScale = new Vector3(player.sprite.flipX == true ? -1 : 1, 1, 1);
-            if (Input.GetMouseButtonDown(1) && player.ray)
-            {
-                pAttackCheck = true;
-                animator?.SetTrigger("powerAttack");
-                yield return new WaitUntil(() => !pAttackCheck);
-                yield return new WaitForSeconds(pAttackCoolTime);
             }
             yield return null;
         }
