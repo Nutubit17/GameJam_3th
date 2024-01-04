@@ -47,7 +47,7 @@ public class CameraManager : MonoBehaviour
             .AppendCallback(() =>
             {
                 virtualCamera.transform.parent.gameObject.SetActive(true);
-                virtualCamera.Follow = currentFollow;
+                virtualCamera.Follow = currentFollow ?? Player.Instance.transform;
             });
     }
 
