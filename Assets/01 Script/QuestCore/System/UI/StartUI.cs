@@ -137,6 +137,8 @@ public class StartUI : MonoBehaviour
         {
             yield return new WaitForSeconds(moveTime);
             startStage.GetComponent<Stage>().CheckThisStage();
+
+            playerUI.SetActive(true);
         }
         
         

@@ -183,8 +183,8 @@ MonoBehaviour:
   typeStress: 0
   typeNormal: 0
   enemyStateParticle: 0
-  startPos: {x: 0, y: 0, z: 0}
-  endPos: {x: 0, y: 0, z: 0}
+  startPos: {x: 10000, y: 10000, z: 0}
+  endPos: {x: -10000, y: -10000, z: 0}
   moveRangeGizmoColor: {r: 1, g: 1, b: 1, a: 1}
   moveRangeGizmoColor2: {r: 1, g: 1, b: 1, a: 1}
   normalRecogGizmoColor: {r: 0, g: 0, b: 1, a: 1}
