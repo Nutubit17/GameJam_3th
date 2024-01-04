@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 33734a2e9c4584343a1d22e869639c60
+guid: 970092bc5388d42429986e8dd53be9c6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 12
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -117,85 +117,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TIleMap_Chast_0
+      name: StaminarBar_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 32
-        width: 32
-        height: 32
+        x: 3
+        y: 21
+        width: 91
+        height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8773bda8164addc4387ac401b0b17994
-      internalID: 933242597
+      spriteID: 1fcd3c1168266aa49a175cd16c784398
+      internalID: -2113247976
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TIleMap_Chast_1
+      name: StaminarBar_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 32
-        width: 32
-        height: 32
+        x: 3
+        y: 4
+        width: 91
+        height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 3, y: 0, z: 87, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7616bdf71da5a34885bcbd0cf6e7d8d
-      internalID: -403406084
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TIleMap_Chast_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 18e6dff796bf5cf428afdde549291c05
-      internalID: -1981733878
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: TIleMap_Chast_3
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 27a0a3250064d4f4fac477d451df721a
-      internalID: -148508260
+      spriteID: 8e56b4bbe6ca8754d9d4f57add740050
+      internalID: 44693258
       vertices: []
       indices: 
       edges: []
@@ -211,10 +169,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      TIleMap_Chast_0: 933242597
-      TIleMap_Chast_1: -403406084
-      TIleMap_Chast_2: -1981733878
-      TIleMap_Chast_3: -148508260
+      StaminarBar_0: -2113247976
+      StaminarBar_1: 44693258
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 33734a2e9c4584343a1d22e869639c60
+guid: 16491f7c919eb3d4da3b3be6e803d752
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 12
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -106,7 +106,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -117,85 +117,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TIleMap_Chast_0
+      name: "New Piskel (57) (4) (9) (1) (2) - \uBCF5\uC0AC\uBCF8_0"
       rect:
         serializedVersion: 2
         x: 0
-        y: 32
-        width: 32
-        height: 32
+        y: 45
+        width: 15
+        height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8773bda8164addc4387ac401b0b17994
-      internalID: 933242597
+      spriteID: 33d01a6decab14646a96b7f944d2a3c9
+      internalID: 1434660867
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TIleMap_Chast_1
+      name: "New Piskel (57) (4) (9) (1) (2) - \uBCF5\uC0AC\uBCF8_1"
       rect:
         serializedVersion: 2
-        x: 32
-        y: 32
+        x: 0
+        y: 15
         width: 32
-        height: 32
+        height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7616bdf71da5a34885bcbd0cf6e7d8d
-      internalID: -403406084
+      spriteID: 435113b8300c46a4a891f91fb27c70ec
+      internalID: -1880774122
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TIleMap_Chast_2
+      name: "New Piskel (57) (4) (9) (1) (2) - \uBCF5\uC0AC\uBCF8_2"
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 32
-        height: 32
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 18e6dff796bf5cf428afdde549291c05
-      internalID: -1981733878
+      spriteID: 671f5325a66a5d74faed3e8ad8cf4c97
+      internalID: 1663235618
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TIleMap_Chast_3
+      name: "New Piskel (57) (4) (9) (1) (2) - \uBCF5\uC0AC\uBCF8_3"
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
+        x: 0
+        y: 30
+        width: 15
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 27a0a3250064d4f4fac477d451df721a
-      internalID: -148508260
+      spriteID: cee1b07342590ae42bb9b6c46b655592
+      internalID: 512359284
       vertices: []
       indices: 
       edges: []
@@ -211,10 +211,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      TIleMap_Chast_0: 933242597
-      TIleMap_Chast_1: -403406084
-      TIleMap_Chast_2: -1981733878
-      TIleMap_Chast_3: -148508260
+      "New Piskel (57) (4) (9) (1) (2) - \uBCF5\uC0AC\uBCF8_0": 1434660867
+      "New Piskel (57) (4) (9) (1) (2) - \uBCF5\uC0AC\uBCF8_1": -1880774122
+      "New Piskel (57) (4) (9) (1) (2) - \uBCF5\uC0AC\uBCF8_2": 1663235618
+      "New Piskel (57) (4) (9) (1) (2) - \uBCF5\uC0AC\uBCF8_3": 512359284
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
