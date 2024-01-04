@@ -31,12 +31,12 @@ public class Enemy : MonoBehaviour
 #endif
 
     public GameObject poly;
-    private Player _player;
+    public Player player;
     private PolygonCollider2D polygonCollider;
     public Rigidbody2D rigid;
-    private Animator animator;
+    protected Animator animationController;
     private CapsuleCollider2D capsuleCollider;
-    private SpriteRenderer sprite;
+    protected SpriteRenderer sprite;
     private HpGauge hpGauge;
 
     public Material enemyMat;
@@ -60,14 +60,14 @@ public class Enemy : MonoBehaviour
 
 
     private bool jumpCheck;
-    private bool isAttack;
+    protected bool isAttack;
     private bool isOnKnockBack;
-    private bool isDead;
+    protected bool isDead;
     public bool typeStress;
     public bool typeNormal;
     public bool enemyStateParticle;
 
-    private float time = 0;
+    protected float time = 0;
 
     private readonly int _RateHash = Shader.PropertyToID("_Rate");
 
@@ -89,11 +89,11 @@ public class Enemy : MonoBehaviour
 
 
 #endif
-    private void Awake()
+    public virtual void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
         rigid = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+        animationController = GetComponent<Animator>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         polygonCollider = GetComponentInChildren<PolygonCollider2D>();
         hpGauge = GetComponentInChildren<HpGauge>();
@@ -101,9 +101,9 @@ public class Enemy : MonoBehaviour
         currentHp = maxHp;
     }
     
-    private void Start()
+    public virtual void Start()
     {
-        _player = Player.Instance;    
+        player = Player.Instance;    
     }
 
     public void OnEnable()
@@ -117,7 +117,7 @@ public class Enemy : MonoBehaviour
     }
 
 
-    IEnumerator MoveRoutine()
+    public virtual IEnumerator MoveRoutine()
     {
         while (true)
         {
@@ -158,10 +158,10 @@ public class Enemy : MonoBehaviour
 
             if (moveDir != 0)
             {
-                animator.SetBool("run", true);
+                animationController.SetBool("run", true);
             }
             else
-                animator.SetBool("run", false);
+                animationController.SetBool("run", false);
 
 
         }
@@ -174,14 +174,14 @@ public class Enemy : MonoBehaviour
 
         while (true)
         {
-            if ((_player.transform.position - transform.position).sqrMagnitude <= Mathf.Pow(normalRecognitionRange, 2))
+            if ((player.transform.position - transform.position).sqrMagnitude <= Mathf.Pow(normalRecognitionRange, 2))
             {
                 poly.transform.localScale = new Vector3((sprite.flipX == true ? -1 : 1), 1, 1);
-                if ((_player.transform.position - transform.position).sqrMagnitude <= attackRange)
+                if ((player.transform.position - transform.position).sqrMagnitude <= attackRange)
                 {
                     isAttack = true;
 
-                    animator.SetTrigger("attack");
+                    animationController.SetTrigger("attack");
                     moveDir = 0.001f;
                 }
 
@@ -193,13 +193,13 @@ public class Enemy : MonoBehaviour
             yield return null;
         }
     }
-    public void AttackOn()
+    public virtual void AttackOn()
     {
         polygonCollider.enabled = true;
 
     }
 
-    public void AttackOff()
+    public virtual void AttackOff()
     {
         polygonCollider.enabled = false;
         isAttack = false;
@@ -211,7 +211,7 @@ public class Enemy : MonoBehaviour
 
         while (true)
         {
-            if (Mathf.Abs(_player.transform.position.x - transform.position.x) <= normalRecognitionRange)
+            if (Mathf.Abs(player.transform.position.x - transform.position.x) <= normalRecognitionRange)
             {
                 if(!typeStress)
                     enemyStateParticle = false;
@@ -221,10 +221,10 @@ public class Enemy : MonoBehaviour
 
             }
 
-            if (Mathf.Abs(_player.transform.position.x - transform.position.x) <= stressRecgnitionRange)
+            if (Mathf.Abs(player.transform.position.x - transform.position.x) <= stressRecgnitionRange)
                 time = 0;
 
-            if (Mathf.Abs(_player.transform.position.x - transform.position.x) >= stressRecgnitionRange && typeStress == true)
+            if (Mathf.Abs(player.transform.position.x - transform.position.x) >= stressRecgnitionRange && typeStress == true)
             {
                 time += Time.deltaTime;
                 if (stressDurationTime < time)
@@ -238,13 +238,13 @@ public class Enemy : MonoBehaviour
             {
                 stateObject.GetComponent<SpriteRenderer>().color = Color.red;
                 EnemyStateParticle();
-                if ((_player.transform.position - transform.position).x >= 0f
-                    && Vector3.Distance(_player.transform.position, transform.position) >= 1f)
+                if ((player.transform.position - transform.position).x >= 0f
+                    && Vector3.Distance(player.transform.position, transform.position) >= 1f)
                 {
                     moveDir = 1;
                     sprite.flipX = false;
                 }
-                else if(Vector3.Distance(_player.transform.position, transform.position) >= 1f)
+                else if(Vector3.Distance(player.transform.position, transform.position) >= 1f)
                 {
                     moveDir = -1;
                     sprite.flipX = true;
@@ -274,7 +274,7 @@ public class Enemy : MonoBehaviour
             
             Vector2 dir = new Vector2(moveDir * speed, rigid.velocity.y);
 
-            if (Mathf.Abs(_player.transform.position.x - transform.position.x) <= 1)
+            if (Mathf.Abs(player.transform.position.x - transform.position.x) <= 1)
             {
                 dir *= Vector2.up;
                 moveDir = 0;
@@ -287,7 +287,7 @@ public class Enemy : MonoBehaviour
     }
 
 
-    IEnumerator JumpRoutine()
+    public virtual IEnumerator JumpRoutine()
     {
         while (true)
         {
@@ -337,14 +337,14 @@ public class Enemy : MonoBehaviour
         isOnKnockBack = false;
     }
 
-    public void Die()
+    public virtual void Die()
     {
         if (isDead) return;
 
         isDead = true;
         StopAllCoroutines();
         rigid.velocity = Vector2.zero;
-        animator.SetTrigger("die");
+        animationController.SetTrigger("die");
         
         TimeControlPrincipal timeController = new TimeControlPrincipal();
 
@@ -386,13 +386,13 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.CompareTag("Poly") && !isDead)
+        if (collision.CompareTag("PlayerPoly") && !isDead)
         {
             ParticleManager.Instance.MakeParticle(transform.position, "Blood");
             CameraManager.Instance.CameraShake(0.6f, 10, 50, 0.2f);
             
 
-        }else if(isDead && collision.CompareTag("Poly"))
+        }else if(isDead && collision.CompareTag("PlayerPoly"))
         {
             ParticleManager.Instance.MakeParticle(transform.position, "Blood");
             CameraManager.Instance.CameraShake(1f, 10, 150, 0.2f);

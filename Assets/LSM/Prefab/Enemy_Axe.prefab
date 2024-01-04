@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 3454783174952252197}
   m_Layer: 0
   m_Name: Poly
-  m_TagString: Poly
+  m_TagString: EnemyPoly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -540,6 +540,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gizmoOn: 1
   poly: {fileID: 3454783174952252218}
+  player: {fileID: 0}
   rigid: {fileID: 0}
   enemyMat: {fileID: 0}
   stateObject: {fileID: 3454783175200361145}

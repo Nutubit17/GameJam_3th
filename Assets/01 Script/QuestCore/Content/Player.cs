@@ -129,7 +129,7 @@ public class Player : MonoBehaviour
                 if (onDash)
                     yield return null;
                 yield return new WaitUntil(() => UIManager.instance.playerStaminaBar.fillAmount > stamina*0.01f);
-                ParticleManager.Instance.MakeParticle(transform.position, "DashEffect", dashTime, transform);
+                ParticleManager.Instance.MakeParticle(transform.position, "DashEffect", dashTime * 2, transform);
                 UIManager.instance.Staminadown(stamina);
                 currentSpeed = dashSpeed;
                 dashDir = currentDir;
@@ -161,12 +161,20 @@ public class Player : MonoBehaviour
                 enemy.Die();
 
         }
-        else if (collision.CompareTag("Poly"))
+        else if (collision.CompareTag("EnemyPoly"))
         {
-            if (!isDash)
+            if (!isDash) 
             {
                 Enemy enemy = collision.GetComponentInParent<Enemy>();
-                UIManager.instance.Hpdown(enemy.damage);
+                Bullet arrow = collision.GetComponentInChildren<Bullet>();
+                if(enemy is not null)
+                    UIManager.instance.Hpdown(enemy.damage);
+                if (arrow is not null)
+                {
+                    UIManager.instance.Hpdown(arrow.damage);
+                    Destroy(arrow.gameObject);
+                }
+
                 StartCoroutine(PlayerHit());
                 ParticleManager.Instance.MakeParticle(transform.position, "PlayerBlood", 1f, null);
             }
