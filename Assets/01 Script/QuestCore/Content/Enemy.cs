@@ -40,10 +40,12 @@ public class Enemy : MonoBehaviour
     private HpGauge hpGauge;
 
     public Material enemyMat;
+    public GameObject stateObject;
 
     public EnmeyName enemyType;
     public float normalRecognitionRange;
     public float stressRecgnitionRange;
+    public float stressDurationTime;
     public float attackRange;
     public float attackCoolTime;
     public bool isOntantion;
@@ -61,12 +63,17 @@ public class Enemy : MonoBehaviour
     private bool isAttack;
     private bool isOnKnockBack;
     private bool isDead;
+    public bool typeStress;
+    public bool typeNormal;
+    public bool enemyStateParticle;
+
+    private float time = 0;
 
     private readonly int _RateHash = Shader.PropertyToID("_Rate");
 
     private RaycastHit2D ray;
     private RaycastHit2D ray2;
-    
+
 
     public Vector3 startPos;
     public Vector3 endPos;
@@ -93,17 +100,20 @@ public class Enemy : MonoBehaviour
 
         currentHp = maxHp;
     }
-
     
+    private void Start()
+    {
+        _player = Player.Instance;    
+    }
 
     public void OnEnable()
     {
-        _player = Player.Instance;
         enemyMat = GetComponent<SpriteRenderer>().material;
         StartCoroutine(MoveRoutine());
         StartCoroutine(SetVelocityRoutine());
         StartCoroutine(JumpRoutine());
         StartCoroutine(Attack());
+        StartCoroutine(EnmeyState());
     }
 
 
@@ -115,13 +125,13 @@ public class Enemy : MonoBehaviour
             {
                 bool result = !(isAttack || isOnKnockBack);
 
-                if (result) moveDir = 0;
+                if (!result) moveDir = 0;
                 return result;
             });
 
             yield return new WaitForSeconds(2f);
             moveDir = Random.Range(-1, 2);
-            
+
 
             float positionInverseLerp = Mathf.InverseLerp(startPos.x, endPos.x, transform.position.x);
 
@@ -135,7 +145,7 @@ public class Enemy : MonoBehaviour
             {
                 bool result = !(isAttack || isOnKnockBack);
 
-                if (result) moveDir = 0;
+                if (!result) moveDir = 0;
                 return result;
             });
 
@@ -160,26 +170,19 @@ public class Enemy : MonoBehaviour
 
     public IEnumerator Attack()
     {
+        yield return null;
+        Debug.Log((_player.transform.position - transform.position).sqrMagnitude <= Mathf.Pow(normalRecognitionRange, 2));
+
         while (true)
         {
-            if((_player.transform.position - transform.position).sqrMagnitude <= Mathf.Pow(normalRecognitionRange, 2))
+            if ((_player.transform.position - transform.position).sqrMagnitude <= Mathf.Pow(normalRecognitionRange, 2))
             {
-                if ((_player.transform.position - transform.position).x >= 0)
-                {
-                    moveDir = 1;
-                    sprite.flipX = false;
-                }
-                else
-                {
-                    moveDir = -1;
-                    sprite.flipX = true;
-                }
                 poly.transform.localScale = new Vector3((sprite.flipX == true ? -1 : 1), 1, 1);
                 if ((_player.transform.position - transform.position).sqrMagnitude <= attackRange)
                 {
                     isAttack = true;
-                    
-                    animator?.SetTrigger("attack");
+
+                    animator.SetTrigger("attack");
                     moveDir = 0.001f;
                 }
 
@@ -202,30 +205,94 @@ public class Enemy : MonoBehaviour
         isAttack = false;
     }
 
+    IEnumerator EnmeyState()
+    {
+        yield return null;
+        Debug.Log(Mathf.Abs(_player.transform.position.x - transform.position.x) <= normalRecognitionRange);
+
+        while (true)
+        {
+            if (Mathf.Abs(_player.transform.position.x - transform.position.x) <= normalRecognitionRange)
+            {
+                if(!typeStress)
+                    enemyStateParticle = false;
+
+                typeNormal = false;
+                typeStress = true;
+
+            }
+
+            if (Mathf.Abs(_player.transform.position.x - transform.position.x) <= stressRecgnitionRange)
+                time = 0;
+
+            if (Mathf.Abs(_player.transform.position.x - transform.position.x) >= stressRecgnitionRange && typeStress == true)
+            {
+                time += Time.deltaTime;
+                if (stressDurationTime < time)
+                {
+                    typeStress = false;
+                    typeNormal = true;
+                    time = 0;
+                }
+            }
+            if (typeStress == true)
+            {
+                stateObject.GetComponent<SpriteRenderer>().color = Color.red;
+                EnemyStateParticle();
+                if ((_player.transform.position - transform.position).x >= 0f
+                    && Vector3.Distance(_player.transform.position, transform.position) >= 1f)
+                {
+                    moveDir = 1;
+                    sprite.flipX = false;
+                }
+                else if(Vector3.Distance(_player.transform.position, transform.position) >= 1f)
+                {
+                    moveDir = -1;
+                    sprite.flipX = true;
+                }
+            }
+            else if (typeNormal == true)
+                stateObject.GetComponent<SpriteRenderer>().color = Color.green;
+            yield return null;
+        }
+    }
+    public void EnemyStateParticle()
+    {
+        if (enemyStateParticle == false)
+        ParticleManager.Instance.MakeParticle(transform.position + Vector3.up * 2.2f, "Recognition", 2f, transform);
+
+        enemyStateParticle = true;
+    }
+
     IEnumerator SetVelocityRoutine()
     {
         while (true)
         {
             yield return new WaitUntil(() => !isOnKnockBack);
 
+          
             rigid.velocity = new Vector2(moveDir * speed, rigid.velocity.y);
+
+
+
             yield return null;
         }
     }
+
 
     IEnumerator JumpRoutine()
     {
         while (true)
         {
-            yield return new WaitUntil(() => !isAttack || !isOnKnockBack);
+            yield return new WaitUntil(() => !(isAttack || isOnKnockBack));
 
             ray = Physics2D.Raycast(capsuleCollider.bounds.min + Vector3.down * 0.3f, Vector2.right, capsuleCollider.bounds.extents.x * 2,
                 1 << LayerMask.NameToLayer("Ground"));
-            
-            ray2 = Physics2D.Raycast(capsuleCollider.bounds.center, moveDir * Vector3.right, 1,
+
+            ray2 = Physics2D.Raycast(capsuleCollider.bounds.center, moveDir * Vector3.right, 1f,
                 1 << LayerMask.NameToLayer("Ground"));
 
-            
+
 
             if (ray2 && ray)
             {
@@ -238,12 +305,12 @@ public class Enemy : MonoBehaviour
     public Vector3 InverseLerp(Vector3 target0, Vector3 target1, Vector3 target2)
     {
         return new Vector3(Mathf.InverseLerp(target0.x, target1.x, target2.x), Mathf.InverseLerp(target0.y, target1.y, target2.y)
-            ,Mathf.InverseLerp(target0.z, target1.z, target2.z));
+            , Mathf.InverseLerp(target0.z, target1.z, target2.z));
     }
 
     public void HpDown(int damage)
     {
-        hpGauge.Rate -= (float)damage/maxHp;
+        hpGauge.Rate -= (float)damage / maxHp;
         currentHp -= damage;
     }
 
@@ -280,12 +347,26 @@ public class Enemy : MonoBehaviour
 
     public IEnumerator DieRoutine()
     {
+        capsuleCollider.enabled = false;
+
         hpGauge.transform.DOScaleX(0, 1f);
         yield return new WaitForSeconds(1f);
         DOTween.To(() => enemyMat.GetFloat(_RateHash), x => enemyMat.SetFloat(_RateHash, x), 1f, 5f);
         yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
         yield return null;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Vector2 dirToOther = (collision.transform.position - transform.position).normalized;
+            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+
+            enemy.KnockBack(-dirToOther, 20f, 0.5f);
+
+        }
     }
 
 #if UNITY_EDITOR
@@ -296,10 +377,10 @@ public class Enemy : MonoBehaviour
             Color currentColor = Gizmos.color;
             Gizmos.color = moveRangeGizmoColor2;
 
-            Vector3 leftDown = startPos  + new Vector3(-0.1f, -0.1f);
-            Vector3 leftUp = new Vector3(startPos.x, endPos.y)  + new Vector3(-0.1f, 0.1f);
-            Vector3 rightUp = endPos  + new Vector3(0.1f, 0.1f);
-            Vector3 rightDown = new Vector3(endPos.x, startPos.y)  + new Vector3(0.1f, -0.1f);
+            Vector3 leftDown = startPos + new Vector3(-0.1f, -0.1f);
+            Vector3 leftUp = new Vector3(startPos.x, endPos.y) + new Vector3(-0.1f, 0.1f);
+            Vector3 rightUp = endPos + new Vector3(0.1f, 0.1f);
+            Vector3 rightDown = new Vector3(endPos.x, startPos.y) + new Vector3(0.1f, -0.1f);
 
             Gizmos.DrawLine(leftDown, leftUp);
             Gizmos.DrawLine(leftUp, rightUp);
@@ -308,10 +389,10 @@ public class Enemy : MonoBehaviour
 
 
 
-            Vector3 leftDown1 = startPos  + new Vector3(0.1f, 0.1f);
-            Vector3 leftUp1 = new Vector3(startPos.x, endPos.y)  + new Vector3(0.1f, -0.1f);
-            Vector3 rightUp1 = endPos  + new Vector3(-0.1f, -0.1f);
-            Vector3 rightDown1 = new Vector3(endPos.x, startPos.y)  + new Vector3(-0.1f, 0.1f);
+            Vector3 leftDown1 = startPos + new Vector3(0.1f, 0.1f);
+            Vector3 leftUp1 = new Vector3(startPos.x, endPos.y) + new Vector3(0.1f, -0.1f);
+            Vector3 rightUp1 = endPos + new Vector3(-0.1f, -0.1f);
+            Vector3 rightDown1 = new Vector3(endPos.x, startPos.y) + new Vector3(-0.1f, 0.1f);
 
             Gizmos.DrawLine(leftDown1, leftUp1);
             Gizmos.DrawLine(leftUp1, rightUp1);
@@ -319,10 +400,10 @@ public class Enemy : MonoBehaviour
             Gizmos.DrawLine(rightDown1, leftDown1);
 
             Gizmos.color = moveRangeGizmoColor;
-            Vector3 leftDown2 = startPos ;
-            Vector3 leftUp2 = new Vector3(startPos.x, endPos.y) ;
-            Vector3 rightUp2 = endPos ;
-            Vector3 rightDown2 = new Vector3(endPos.x, startPos.y) ;
+            Vector3 leftDown2 = startPos;
+            Vector3 leftUp2 = new Vector3(startPos.x, endPos.y);
+            Vector3 rightUp2 = endPos;
+            Vector3 rightDown2 = new Vector3(endPos.x, startPos.y);
 
             Gizmos.DrawLine(leftDown2, leftUp2);
             Gizmos.DrawLine(leftUp2, rightUp2);

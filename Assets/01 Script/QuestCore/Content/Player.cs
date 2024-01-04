@@ -47,9 +47,13 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         trail = GetComponent<TrailRenderer>();
+        currentSpeed = normalSpeed;
+    }
+
+    private void Start()
+    {
         StartCoroutine(MoveRoutine());
         StartCoroutine(DashRoutine());
-        currentSpeed = normalSpeed;
     }
 
     private IEnumerator MoveRoutine()
