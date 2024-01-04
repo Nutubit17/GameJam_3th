@@ -26,7 +26,7 @@ public class CameraManager : MonoBehaviour
     {
         Vector3 currentPos = main.transform.position;
 
-        Transform currentFollow = virtualCamera.Follow.transform ?? Player.Instance.transform; 
+        Transform currentFollow = virtualCamera.Follow ?? Player.Instance.transform; 
         Vector3 forwardPos =  (virtualCamera.transform.position.z * Vector3.forward);
         virtualCamera.Follow = null;
         
