@@ -14,17 +14,15 @@ public class PlayerAttack : MonoBehaviour
 
 
     public float attackCoolTime;
-    public int pAttackCoolTime;
-    public int jAttackCoolTime;
+    public float pAttackCoolTime;
+    public float jAttackCoolTime;
 
-    private bool attackAniCheck;
-    private bool pAttackAniCheck;
-    private bool jAttackAniCheck;
+    private bool attackCheck;
+    private bool pAttackCheck;
+    private bool jAttackCheck;
+
     private bool attack =true;
 
-    private bool attackCheck = true;
-    private bool pAttackCheck = true;
-    private bool jAttackCheck = true;
 
 
     private void Awake()
@@ -54,7 +52,6 @@ public class PlayerAttack : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && player.ray && attack == true)
             {
                 attack = false;
-                attackCheck = true;
                 animator?.SetTrigger("attack");
                 yield return new WaitUntil(() => !attackCheck);
                 yield return new WaitForSeconds(attackCoolTime);
