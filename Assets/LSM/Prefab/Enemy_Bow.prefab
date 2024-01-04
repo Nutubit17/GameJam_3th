@@ -202,9 +202,9 @@ MonoBehaviour:
   attackRange: 10
   attackCoolTime: 1
   isOntantion: 0
-  maxHp: 10
+  maxHp: 3
   currentHp: 0
-  damage: 2
+  damage: 5
   speed: 0
   jumpPower: 0
   moveDir: 0
@@ -249,7 +249,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 500
+  m_Mass: 100
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -351,9 +351,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 0
   m_Sprite: {fileID: 202473614, guid: 47fbba5d6e7f2fb44a78a4d486fdbdc5, type: 3}
-  m_Color: {r: 0.33675766, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
