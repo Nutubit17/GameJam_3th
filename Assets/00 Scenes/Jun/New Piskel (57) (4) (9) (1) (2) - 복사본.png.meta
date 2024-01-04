@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6a1436a73f128c944b01238ca7a1d3ca
+guid: 16491f7c919eb3d4da3b3be6e803d752
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -106,7 +106,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -117,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: StaminarBar_0
+      name: "New Piskel (57) (4) (9) (1) (2) - \uBCF5\uC0AC\uBCF8_0"
       rect:
         serializedVersion: 2
-        x: 3
-        y: 21
-        width: 91
-        height: 8
+        x: 0
+        y: 45
+        width: 15
+        height: 15
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1fcd3c1168266aa49a175cd16c784398
-      internalID: -2113247976
+      spriteID: 33d01a6decab14646a96b7f944d2a3c9
+      internalID: 1434660867
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: StaminarBar_1
+      name: "New Piskel (57) (4) (9) (1) (2) - \uBCF5\uC0AC\uBCF8_1"
       rect:
         serializedVersion: 2
-        x: 3
-        y: 4
-        width: 91
-        height: 8
+        x: 0
+        y: 15
+        width: 32
+        height: 15
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,8 +152,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e56b4bbe6ca8754d9d4f57add740050
-      internalID: 44693258
+      spriteID: 435113b8300c46a4a891f91fb27c70ec
+      internalID: -1880774122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "New Piskel (57) (4) (9) (1) (2) - \uBCF5\uC0AC\uBCF8_2"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 671f5325a66a5d74faed3e8ad8cf4c97
+      internalID: 1663235618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "New Piskel (57) (4) (9) (1) (2) - \uBCF5\uC0AC\uBCF8_3"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 30
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cee1b07342590ae42bb9b6c46b655592
+      internalID: 512359284
       vertices: []
       indices: 
       edges: []
@@ -169,8 +211,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      StaminarBar_0: -2113247976
-      StaminarBar_1: 44693258
+      "New Piskel (57) (4) (9) (1) (2) - \uBCF5\uC0AC\uBCF8_0": 1434660867
+      "New Piskel (57) (4) (9) (1) (2) - \uBCF5\uC0AC\uBCF8_1": -1880774122
+      "New Piskel (57) (4) (9) (1) (2) - \uBCF5\uC0AC\uBCF8_2": 1663235618
+      "New Piskel (57) (4) (9) (1) (2) - \uBCF5\uC0AC\uBCF8_3": 512359284
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

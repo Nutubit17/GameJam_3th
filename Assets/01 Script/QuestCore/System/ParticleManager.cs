@@ -24,7 +24,7 @@ public class ParticleManager : MonoBehaviour
         Instance = this;
     }
 
-    public void MakeParticle(Vector3 position, string name = "", float destroyTime = 2f)
+    public void MakeParticle(Vector3 position, string name = "", float destroyTime = 2f, Transform trm = null)
     { 
         var particles = prefabs.Where(x => x.name == name).ToArray();
 
@@ -34,7 +34,8 @@ public class ParticleManager : MonoBehaviour
                 (
                     particles[0].prefab,
                     position,
-                    quaternion.identity
+                    quaternion.identity,
+                    trm
                 );
             
             Destroy(obj, destroyTime);

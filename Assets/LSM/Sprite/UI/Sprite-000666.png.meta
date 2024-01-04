@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6a1436a73f128c944b01238ca7a1d3ca
+guid: f33f1ea8352bb4444b566169357ffea3
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -106,7 +106,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -117,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: StaminarBar_0
+      name: Sprite-000666_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 21
-        width: 91
-        height: 8
+        x: 25
+        y: 31
+        width: 14
+        height: 12
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,29 +131,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1fcd3c1168266aa49a175cd16c784398
-      internalID: -2113247976
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: StaminarBar_1
-      rect:
-        serializedVersion: 2
-        x: 3
-        y: 4
-        width: 91
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8e56b4bbe6ca8754d9d4f57add740050
-      internalID: 44693258
+      spriteID: bb84d58da4049634a93aa0e3e010d7bb
+      internalID: 715626913
       vertices: []
       indices: 
       edges: []
@@ -169,8 +148,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      StaminarBar_0: -2113247976
-      StaminarBar_1: 44693258
+      Sprite-000666_0: 715626913
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
