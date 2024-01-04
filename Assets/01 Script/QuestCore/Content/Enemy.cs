@@ -56,7 +56,7 @@ public class Enemy : MonoBehaviour
     private bool jumpCheck;
     private bool isAttack;
     private bool isOnKnockBack;
-    private float moveDir;
+    public float moveDir;
 
     private RaycastHit2D ray;
     private RaycastHit2D ray2;
@@ -78,7 +78,6 @@ public class Enemy : MonoBehaviour
 #endif
     private void Awake()
     {
-        _player = Player.Instance;
         sprite = GetComponent<SpriteRenderer>();
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -87,8 +86,13 @@ public class Enemy : MonoBehaviour
         hpGauge = GetComponentInChildren<HpGauge>();
 
     }
+
+    
+
     public void OnEnable()
     {
+        _player = Player.Instance;
+
         StartCoroutine(MoveRoutine());
         StartCoroutine(SetVelocityRoutine());
         StartCoroutine(JumpRoutine());
@@ -100,11 +104,17 @@ public class Enemy : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitUntil(() => !isAttack || !isOnKnockBack);
+            yield return new WaitUntil(() =>
+            {
+                bool result = !(isAttack || isOnKnockBack);
+
+                if (result) moveDir = 0;
+                return result;
+            });
 
             yield return new WaitForSeconds(2f);
             moveDir = Random.Range(-1, 2);
-
+            
 
             float positionInverseLerp = Mathf.InverseLerp(startPos.x, endPos.x, transform.position.x);
 
@@ -112,6 +122,15 @@ public class Enemy : MonoBehaviour
             {
                 moveDir = -(int)Mathf.Sign(positionInverseLerp - 0.5f);
             }
+
+
+            yield return new WaitUntil(() =>
+            {
+                bool result = !(isAttack || isOnKnockBack);
+
+                if (result) moveDir = 0;
+                return result;
+            });
 
 
             if (moveDir == -1)
@@ -154,7 +173,7 @@ public class Enemy : MonoBehaviour
                     isAttack = true;
                     
                     animator.SetTrigger("attack");
-                    moveDir = 0.002f;
+                    moveDir = 0.001f;
                 }
 
                 yield return new WaitUntil(() => !isAttack);
@@ -180,11 +199,7 @@ public class Enemy : MonoBehaviour
     {
         while (true)
         {
-            if(isAttack || isOnKnockBack)
-            {
-                moveDir = 0;
-                yield return new WaitUntil(() => !(isAttack || isOnKnockBack));
-            }
+            yield return new WaitUntil(() => !isOnKnockBack);
 
             rigid.velocity = new Vector2(moveDir * speed, rigid.velocity.y);
             yield return null;
@@ -223,7 +238,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            //Debug.Log(1);
+            
         }
     }
 

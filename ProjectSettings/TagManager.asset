@@ -7,6 +7,7 @@ TagManager:
   - Boom
   - Enemy
   - Ground
+  - Poly
   layers:
   - Default
   - TransparentFX

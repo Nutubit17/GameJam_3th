@@ -18,6 +18,7 @@ public class PlayerAttack : MonoBehaviour
     private bool attackCheck;
     private bool pAttackCheck;
     private bool jAttackCheck;
+    private bool isAttack;
 
     private void Awake()
     {
@@ -58,38 +59,41 @@ public class PlayerAttack : MonoBehaviour
 
     public IEnumerator AttackDelayTime()
     {
-        attackCheck = true;
         animator.SetTrigger("attack");
-        polyCollider.enabled = true;
         yield return new WaitForSeconds(attackCoolTime);
-        attackCheck = false;
     }
 
     public IEnumerator PAttackDelayTime()
     {
-        pAttackCheck = true;
         animator.SetTrigger("powerAttack");
-        boxCollider.enabled = true;
         yield return new WaitForSeconds(pAttackCoolTime);
-        pAttackCheck = false;
     }
 
     public IEnumerator JAttackDelayTime()
     {
-        jAttackCheck = true;
         animator.SetTrigger("jumpAttack");
-        polyCollider.enabled = true;
         yield return new WaitForSeconds(jAttackCoolTime);
-        jAttackCheck = false;
+    }
+    public void AttackOn()
+    {
+        jAttackCheck = true;
+        polyCollider.enabled = true;
     }
 
-    public void PolyColliderOff()
+    public void AttackOff()
     {
+        jAttackCheck = false;
         polyCollider.enabled = false;
     }
-
-    public void BoxColliderOff()
+    public void PAttackOn()
     {
+        jAttackCheck = true;
+        boxCollider.enabled = true;
+    }
+
+    public void PAttackOff()
+    {
+        jAttackCheck = false;
         boxCollider.enabled = false;
     }
 }
