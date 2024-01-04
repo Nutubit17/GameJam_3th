@@ -40,7 +40,7 @@ public class CameraManager : MonoBehaviour
                 randomnessMode: ShakeRandomnessMode.Harmonic))
             .AppendCallback(() =>
             {
-                Transform followTrm = currentFollow;
+                Transform followTrm = currentFollow ?? Player.Instance.transform;
                 main.transform.DOMove( forwardPos + (Vector3)(Vector2)(followTrm.transform.position), 1f);
             })
             .AppendInterval(1f)
