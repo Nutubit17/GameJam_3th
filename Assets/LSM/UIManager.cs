@@ -16,11 +16,22 @@ public class UIManager : MonoBehaviour
     }
 
     public Image playerHpbar;
+    public Image playerStaminaBar;
 
     public void Hpdown(float damage)
     {
-        Debug.Log(damage);
         playerHpbar.fillAmount -= damage * 0.01f;
+    }
+
+    public void Staminadown(float damage)
+    {
+        playerStaminaBar.fillAmount -= damage * 0.01f;
+    }
+
+    private void Update()
+    {
+        playerStaminaBar.fillAmount += 0.01f * Time.deltaTime;
+        playerStaminaBar.fillAmount = Mathf.Clamp(playerStaminaBar.fillAmount, 0, 1);
     }
 
 }

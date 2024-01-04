@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     public int dashDir = 1;
     public float dashTime;
     public float dashCoolTime;
+    public float stamina;
 
     public int jumpPower;
 
@@ -119,6 +120,7 @@ public class Player : MonoBehaviour
             {
                 if (onDash)
                     yield return null;
+                UIManager.instance.Staminadown(stamina);
                 currentSpeed = dashSpeed;
                 dashDir = currentDir;
                 isDash = true;
@@ -145,8 +147,11 @@ public class Player : MonoBehaviour
             enemy.KnockBack(dirVector.normalized, force, 0.3f);
             ParticleManager.Instance.MakeParticle(enemy.transform.position, "Slash", 5f);
 
+            if (enemy.currentHp <= 0)
+                enemy.Die();
+
         }
-        else if(collision.CompareTag("Poly"))
+        else if (collision.CompareTag("Poly"))
         {
             if (!isDash)
             {
