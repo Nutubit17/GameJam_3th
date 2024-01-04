@@ -167,12 +167,17 @@ public class Player : MonoBehaviour
             {
                 Enemy enemy = collision.GetComponentInParent<Enemy>();
                 Bullet arrow = collision.GetComponentInChildren<Bullet>();
+                BossDamage boss = collision.GetComponent<BossDamage>();
                 if(enemy is not null)
                     UIManager.instance.Hpdown(enemy.damage);
                 if (arrow is not null)
                 {
                     UIManager.instance.Hpdown(arrow.damage);
                     Destroy(arrow.gameObject);
+                }
+                if(boss is not null)
+                {
+                    UIManager.instance.Hpdown(boss.damage);
                 }
 
                 StartCoroutine(PlayerHit());

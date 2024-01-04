@@ -196,8 +196,9 @@ public class Enemy : MonoBehaviour
     public virtual void AttackOn()
     {
         polygonCollider.enabled = true;
-
     }
+
+
 
     public virtual void AttackOff()
     {

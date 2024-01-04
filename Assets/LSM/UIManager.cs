@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
+
     }
 
     public Image playerHpbar;

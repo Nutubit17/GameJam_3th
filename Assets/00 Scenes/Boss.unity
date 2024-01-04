@@ -35312,6 +35312,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 0}
   main: {fileID: 0}
   followTrm: {fileID: 0}
+  baseCameraSize: 0
 --- !u!4 &1164145100
 Transform:
   m_ObjectHideFlags: 0
@@ -39226,7 +39227,7 @@ GameObject:
   - component: {fileID: 1608219493}
   m_Layer: 0
   m_Name: AttackStab
-  m_TagString: Poly
+  m_TagString: EnemyPoly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

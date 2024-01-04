@@ -89,6 +89,7 @@ public class PlayerAttack : MonoBehaviour
     public void AttackOn()
     {
         polyCollider.enabled = true;
+        SoundManager.instance.MakeParticle(new Vector2(1, 3),"Hammer", true, 0.5f, 0.5f);
     }
 
     public void AttackOff()
@@ -100,6 +101,7 @@ public class PlayerAttack : MonoBehaviour
     public void PAttackOn()
     {
         boxCollider.enabled = true;
+        SoundManager.instance.MakeParticle(new Vector2(1, 3), "Hammer", true, 0.5f, 0.5f);
     }
 
     public void PAttackOff()
@@ -109,6 +111,7 @@ public class PlayerAttack : MonoBehaviour
     }
     public void JAttackOn()
     {
+        SoundManager.instance.MakeParticle(new Vector2(1, 3), "Hammer", true, 0.5f, 0.5f);
         polyCollider.enabled = true;
         rigid.gravityScale = 10;
     }
