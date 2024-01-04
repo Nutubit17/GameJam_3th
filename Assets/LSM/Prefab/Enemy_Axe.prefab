@@ -463,7 +463,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3454783175597931059}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 19.3, y: -16.24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -624,6 +624,50 @@ CapsuleCollider2D:
   m_Offset: {x: 0.01995349, y: -0.07316291}
   m_Size: {x: 0.95376205, y: 1.5390651}
   m_Direction: 0
+<<<<<<< Updated upstream
+=======
+--- !u!114 &2347004072864933995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3454783175597931059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b8c1fd5b39586342ad81fd14f311824, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gizmoOn: 1
+  poly: {fileID: 3454783174952252218}
+  player: {fileID: 0}
+  rigid: {fileID: 0}
+  enemyMat: {fileID: 0}
+  stateObject: {fileID: 3454783175200361145}
+  enemyType: 0
+  normalRecognitionRange: 5
+  stressRecgnitionRange: 10
+  stressDurationTime: 3
+  attackRange: 2
+  attackCoolTime: 3
+  isOntantion: 0
+  maxHp: 30
+  currentHp: 0
+  damage: 10
+  speed: 3
+  jumpPower: 5
+  moveDir: 0
+  typeStress: 0
+  typeNormal: 0
+  enemyStateParticle: 0
+  startPos: {x: 10000, y: 10000, z: 0}
+  endPos: {x: -10000, y: -10000, z: 0}
+  moveRangeGizmoColor: {r: 1, g: 1, b: 1, a: 1}
+  moveRangeGizmoColor2: {r: 1, g: 1, b: 1, a: 1}
+  normalRecogGizmoColor: {r: 0, g: 0, b: 1, a: 1}
+  stressRecogGizmoColor: {r: 1, g: 0, b: 0, a: 1}
+  attackRangeGizmoColor: {r: 1, g: 1, b: 1, a: 1}
+>>>>>>> Stashed changes
 --- !u!1 &3454783175710930719
 GameObject:
   m_ObjectHideFlags: 0

@@ -173,7 +173,11 @@ MonoBehaviour:
   attackRange: 2
   attackCoolTime: 1
   isOntantion: 0
+<<<<<<< Updated upstream
   maxHp: 10
+=======
+  maxHp: 20
+>>>>>>> Stashed changes
   currentHp: 0
   damage: 5
   speed: 5
