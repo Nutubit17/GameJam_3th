@@ -7,9 +7,11 @@ public class PlayerAttack : MonoBehaviour
 
     private Player player;
     private Animator animator;
+    private Rigidbody2D rigid;
     private PolygonCollider2D polyCollider;
     public  BoxCollider2D boxCollider;
     public  GameObject polyDir;
+
 
     public float attackCoolTime;
     public int pAttackCoolTime;
@@ -29,46 +31,20 @@ public class PlayerAttack : MonoBehaviour
         player = GetComponent<Player>();
         animator = GetComponent<Animator>();
         polyCollider = GetComponentInChildren<PolygonCollider2D>();
-        boxCollider = transform.Find("Poly").GetComponent<BoxCollider2D>();
-        //boxCollider = transform.GetChild(0).GetComponent<BoxCollider2D>();
-        Debug.Log(boxCollider is null);
+        rigid = GetComponent<Rigidbody2D>();
+        //boxCollider = transform.GetChild(0).GetComponentInChildren<BoxCollider2D>();
     }
 
     private void OnEnable()
     {
-        StartCoroutine(Attacks());
+        StartCoroutine(Attack());
         StartCoroutine(PAttack());
         StartCoroutine(JAttack());
     }
 
-    public void Attack()
-    {
-        //polyDir.transform.localScale =  new Vector3(player.sprite.flipX == true ? -1:1,1,1);
-        //if (Input.GetMouseButtonDown(0) && player.ray)
-        //{
-        //    if (!attackCheck)
-        //        return;
-        //    Debug.Log(attackCheck);
-        //    StartCoroutine(AttackDelayTime());
 
-        //}
 
-        //if(Input.GetMouseButtonDown(0) && !player.ray)
-        //{
-        //    if (!jAttackCheck)
-        //        return;
-        //    StartCoroutine(JAttackDelayTime());
-        //}
-
-        //if (Input.GetMouseButtonDown(1) && player.ray)
-        //{
-        //    if (!pAttackCheck)
-        //        return;
-        //    StartCoroutine(PAttackDelayTime());
-        //}
-    }
-
-    IEnumerator Attacks()
+    IEnumerator Attack()
     {
 
         while (true)
@@ -81,6 +57,7 @@ public class PlayerAttack : MonoBehaviour
                 yield return new WaitUntil(() => !attackCheck);
                 yield return new WaitForSeconds(attackCoolTime);
             }
+            
             yield return null;
         }
     }
@@ -92,7 +69,6 @@ public class PlayerAttack : MonoBehaviour
             polyDir.transform.localScale = new Vector3(player.sprite.flipX == true ? -1 : 1, 1, 1);
             if (Input.GetMouseButtonDown(0) && !player.ray)
             {
-
                 jAttackCheck = true;
                 animator?.SetTrigger("jumpAttack");
                 yield return new WaitUntil(() => !jAttackCheck);
@@ -131,7 +107,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void PAttackOn()
     {
-        boxCollider.enabled = false;
+        boxCollider.enabled = true;
     }
 
     public void PAttackOff()
