@@ -185,6 +185,7 @@ public class Enemy : MonoBehaviour
                     moveDir = 0.001f;
                 }
 
+
                 yield return new WaitUntil(() => !isAttack);
                 yield return new WaitForSeconds(attackCoolTime);
             }
@@ -268,10 +269,18 @@ public class Enemy : MonoBehaviour
         {
             yield return new WaitUntil(() => !isOnKnockBack);
 
-          
-            rigid.velocity = new Vector2(moveDir * speed, rigid.velocity.y);
 
 
+            
+            Vector2 dir = new Vector2(moveDir * speed, rigid.velocity.y);
+
+            if (Mathf.Abs(_player.transform.position.x - transform.position.x) <= 1)
+            {
+                dir *= Vector2.up;
+                moveDir = 0;
+            }
+
+            rigid.velocity = dir;
 
             yield return null;
         }

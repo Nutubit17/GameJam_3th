@@ -129,6 +129,7 @@ public class Player : MonoBehaviour
                 if (onDash)
                     yield return null;
                 yield return new WaitUntil(() => UIManager.instance.playerStaminaBar.fillAmount > stamina*0.01f);
+                ParticleManager.Instance.MakeParticle(transform.position, "DashEffect", dashTime, transform);
                 UIManager.instance.Staminadown(stamina);
                 currentSpeed = dashSpeed;
                 dashDir = currentDir;
