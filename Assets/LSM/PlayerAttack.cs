@@ -15,85 +15,138 @@ public class PlayerAttack : MonoBehaviour
     public int pAttackCoolTime;
     public int jAttackCoolTime;
 
-    private bool attackCheck;
-    private bool pAttackCheck;
-    private bool jAttackCheck;
-    private bool isAttack;
+    private bool attackAniCheck;
+    private bool pAttackAniCheck;
+    private bool jAttackAniCheck;
+
+    private bool attackCheck = true;
+    private bool pAttackCheck = true;
+    private bool jAttackCheck = true;
+
 
     private void Awake()
     {
         player = GetComponent<Player>();
         animator = GetComponent<Animator>();
         polyCollider = GetComponentInChildren<PolygonCollider2D>();
+        boxCollider = transform.Find("Poly").GetComponent<BoxCollider2D>();
+        //boxCollider = transform.GetChild(0).GetComponent<BoxCollider2D>();
+        Debug.Log(boxCollider is null);
     }
-    private void Update()
+
+    private void OnEnable()
     {
-        Attak();
+        StartCoroutine(Attacks());
+        StartCoroutine(PAttack());
+        StartCoroutine(JAttack());
     }
-    public void Attak()
+
+    public void Attack()
     {
-        polyDir.transform.localScale =  new Vector3(player.sprite.flipX == true ? -1:1,1,1);
-        if (Input.GetMouseButtonDown(0) && player.ray)
+        //polyDir.transform.localScale =  new Vector3(player.sprite.flipX == true ? -1:1,1,1);
+        //if (Input.GetMouseButtonDown(0) && player.ray)
+        //{
+        //    if (!attackCheck)
+        //        return;
+        //    Debug.Log(attackCheck);
+        //    StartCoroutine(AttackDelayTime());
+
+        //}
+
+        //if(Input.GetMouseButtonDown(0) && !player.ray)
+        //{
+        //    if (!jAttackCheck)
+        //        return;
+        //    StartCoroutine(JAttackDelayTime());
+        //}
+
+        //if (Input.GetMouseButtonDown(1) && player.ray)
+        //{
+        //    if (!pAttackCheck)
+        //        return;
+        //    StartCoroutine(PAttackDelayTime());
+        //}
+    }
+
+    IEnumerator Attacks()
+    {
+
+        while (true)
         {
-            if (attackCheck)
-                return;
-            StartCoroutine(AttackDelayTime());
-
+            polyDir.transform.localScale = new Vector3(player.sprite.flipX == true ? -1 : 1, 1, 1);
+            if (Input.GetMouseButtonDown(0) && player.ray)
+            {
+                attackCheck = true;
+                animator?.SetTrigger("attack");
+                yield return new WaitUntil(() => !attackCheck);
+                yield return new WaitForSeconds(attackCoolTime);
+            }
+            yield return null;
         }
+    }
 
-        if(Input.GetMouseButtonDown(0) && !player.ray)
+    IEnumerator JAttack()
+    {
+        while (true)
         {
-            if (jAttackCheck)
-                return;
-            player.jumpCheck = true;
-            StartCoroutine(JAttackDelayTime());
-        }
+            polyDir.transform.localScale = new Vector3(player.sprite.flipX == true ? -1 : 1, 1, 1);
+            if (Input.GetMouseButtonDown(0) && !player.ray)
+            {
 
-        if (Input.GetMouseButtonDown(1) && player.ray)
+                jAttackCheck = true;
+                animator?.SetTrigger("jumpAttack");
+                yield return new WaitUntil(() => !jAttackCheck);
+                yield return new WaitForSeconds(jAttackCoolTime);
+            }
+            yield return null;
+        }
+    }
+    IEnumerator PAttack()
+    {
+        while (true)
         {
-            if (pAttackCheck)
-                return;
-            StartCoroutine(PAttackDelayTime());
+            polyDir.transform.localScale = new Vector3(player.sprite.flipX == true ? -1 : 1, 1, 1);
+            if (Input.GetMouseButtonDown(1) && player.ray)
+            {
+                pAttackCheck = true;
+                animator?.SetTrigger("powerAttack");
+                yield return new WaitUntil(() => !pAttackCheck);
+                yield return new WaitForSeconds(pAttackCoolTime);
+            }
+            yield return null;
         }
     }
 
-    public IEnumerator AttackDelayTime()
-    {
-        animator.SetTrigger("attack");
-        yield return new WaitForSeconds(attackCoolTime);
-    }
 
-    public IEnumerator PAttackDelayTime()
-    {
-        animator.SetTrigger("powerAttack");
-        yield return new WaitForSeconds(pAttackCoolTime);
-    }
-
-    public IEnumerator JAttackDelayTime()
-    {
-        animator.SetTrigger("jumpAttack");
-        yield return new WaitForSeconds(jAttackCoolTime);
-    }
     public void AttackOn()
     {
-        jAttackCheck = true;
         polyCollider.enabled = true;
     }
 
     public void AttackOff()
     {
-        jAttackCheck = false;
+        attackCheck = false;
         polyCollider.enabled = false;
     }
+
     public void PAttackOn()
     {
-        jAttackCheck = true;
-        boxCollider.enabled = true;
+        boxCollider.enabled = false;
     }
 
     public void PAttackOff()
     {
-        jAttackCheck = false;
+        pAttackCheck = false;
         boxCollider.enabled = false;
+    }
+    public void JAttackOn()
+    {
+        polyCollider.enabled = true;
+    }
+
+    public void JAttackOff()
+    {
+        jAttackCheck = false;
+        polyCollider.enabled = false;
     }
 }
