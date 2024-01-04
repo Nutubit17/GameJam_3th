@@ -13,18 +13,32 @@ public class CameraManager : MonoBehaviour
     public Camera main;
 
     public Transform followTrm;
+    public float baseCameraSize;
     
     public void Awake()
     {
         Instance = this;
         virtualCamera = FindAnyObjectByType<CinemachineVirtualCamera>();
         main = Camera.main;
-        
+
+        baseCameraSize = virtualCamera.m_Lens.OrthographicSize;
     }
 
     private void Start()
     {
         followTrm = virtualCamera.Follow;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            ChangeCameraSize(0.5f, 0.5f, AnimationCurve.Linear(0,0,1,1));
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            ChangeCameraSize(1f, 0.5f, AnimationCurve.Linear(0,0,1,1));            
+        }
     }
 
     public void CameraShake(float shakeScale = 1f, float randomness = 50f, int vibrato = 10, float time = 1f)
@@ -51,6 +65,15 @@ public class CameraManager : MonoBehaviour
     {
         virtualCamera.Follow = trm;
     }
-    
+
+    public void ChangeCameraSize(float size = 1, float time = 1f, AnimationCurve curve = null)
+    {
+        if(curve == null) return;
+        
+        DOTween.To(
+                () => virtualCamera.m_Lens.OrthographicSize, x => virtualCamera.m_Lens.OrthographicSize = x,
+                size * baseCameraSize, time)
+            .SetEase(curve);
+    }
     
 }
