@@ -21,6 +21,11 @@ public class StartUI : MonoBehaviour
     public float titleMoveTime;
     public AnimationCurve titleMoveCurve;
 
+    public StageShowUI stageShowUI;
+    public GameObject startStage;
+
+    public bool isGameStarted;
+    
     private void Awake()
     {
         panel = transform.Find("Panel").GetComponent<Image>();
@@ -94,6 +99,9 @@ public class StartUI : MonoBehaviour
 
     public void GameStart()
     {
+        if(isGameStarted) return;
+        isGameStarted = true;
+        
         IEnumerator PanelRectRoutine()
         {
             Vector3 startPosition = panel.transform.position;
@@ -115,8 +123,25 @@ public class StartUI : MonoBehaviour
 
 
         }
+
+        IEnumerator StageShowUIRoutine()
+        {
+            yield return new WaitForSeconds(moveTime);
+            stageShowUI.FadeOut();
+            startStage.SetActive(true);
+            CameraManager.Instance.ChangeTarget(Player.Instance.transform);
+            yield return new WaitForSeconds(stageShowUI.fadeTime + 1f);
+
+            stageShowUI.FadeIn();
+            
+        }
+        
         
         StartCoroutine(PanelRectRoutine());
+        StartCoroutine(StageShowUIRoutine());
+
+
+
     }
     
     
