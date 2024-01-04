@@ -13969,7 +13969,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
-  dashSpeed: 20
+  dashSpeed: 40
   normalSpeed: 4
   damage: 10
   force: 5
@@ -13979,6 +13979,12 @@ MonoBehaviour:
   jumpPower: 7
   onDash: 0
   isDash: 0
+  hitColorCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!61 &239668102
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -17138,9 +17144,11 @@ MonoBehaviour:
   poly: {fileID: 1252146}
   rigid: {fileID: 0}
   enemyMat: {fileID: 0}
+  stateObject: {fileID: 0}
   enemyType: 0
   normalRecognitionRange: 5
   stressRecgnitionRange: 10
+  stressDurationTime: 0
   attackRange: 2.5
   attackCoolTime: 0.5
   isOntantion: 0
@@ -17150,6 +17158,9 @@ MonoBehaviour:
   speed: 2
   jumpPower: 5
   moveDir: 0
+  typeStress: 0
+  typeNormal: 0
+  enemyStateParticle: 0
   startPos: {x: -18, y: -7.07, z: 0}
   endPos: {x: 3.2, y: 2.23, z: 0}
   moveRangeGizmoColor: {r: 0, g: 0, b: 0, a: 1}
