@@ -136,6 +136,7 @@ public class StartUI : MonoBehaviour
         IEnumerator StageShowUIRoutine()
         {
             yield return new WaitForSeconds(moveTime);
+            playerUI.SetActive(true);
             startStage.GetComponent<Stage>().CheckThisStage();
         }
         
