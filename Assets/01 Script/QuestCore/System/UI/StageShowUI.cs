@@ -12,9 +12,10 @@ public class StageShowUI : MonoBehaviour
     public TextMeshProUGUI text;
     public Image enemyImage1;    
     public Image enemyImage2;
-
+    public StageDescription stageDesc;
+    
     public float fadeTime = 2f;
-
+    
     private void Awake()
     {
         panel       = transform.GetChild(0).GetComponent<Image>();
