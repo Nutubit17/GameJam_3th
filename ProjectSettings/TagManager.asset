@@ -10,7 +10,6 @@ TagManager:
   - Poly
   - EnemyPoly
   - PlayerPoly
-  - Arrow
   layers:
   - Default
   - TransparentFX
