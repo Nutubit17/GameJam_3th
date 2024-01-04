@@ -44,6 +44,7 @@ public class Enemy : MonoBehaviour
     public EnmeyName enemyType;
     public float normalRecognitionRange;
     public float stressRecgnitionRange;
+    public float stressDurationTime;
     public float attackRange;
     public float attackCoolTime;
     public bool isOntantion;
@@ -61,6 +62,10 @@ public class Enemy : MonoBehaviour
     private bool isAttack;
     private bool isOnKnockBack;
     private bool isDead;
+    private bool typeStrass;
+    private bool typeNormal;
+
+    private float time = 0;
 
     private readonly int _RateHash = Shader.PropertyToID("_Rate");
 
@@ -115,7 +120,7 @@ public class Enemy : MonoBehaviour
             {
                 bool result = !(isAttack || isOnKnockBack);
 
-                if (result) moveDir = 0;
+                if (!result) moveDir = 0;
                 return result;
             });
 
@@ -135,7 +140,7 @@ public class Enemy : MonoBehaviour
             {
                 bool result = !(isAttack || isOnKnockBack);
 
-                if (result) moveDir = 0;
+                if (!result) moveDir = 0;
                 return result;
             });
 
@@ -164,16 +169,6 @@ public class Enemy : MonoBehaviour
         {
             if((_player.transform.position - transform.position).sqrMagnitude <= Mathf.Pow(normalRecognitionRange, 2))
             {
-                if ((_player.transform.position - transform.position).x >= 0)
-                {
-                    moveDir = 1;
-                    sprite.flipX = false;
-                }
-                else
-                {
-                    moveDir = -1;
-                    sprite.flipX = true;
-                }
                 poly.transform.localScale = new Vector3((sprite.flipX == true ? -1 : 1), 1, 1);
                 if ((_player.transform.position - transform.position).sqrMagnitude <= attackRange)
                 {
@@ -208,7 +203,38 @@ public class Enemy : MonoBehaviour
         {
             yield return new WaitUntil(() => !isOnKnockBack);
 
+            if(Mathf.Abs(_player.transform.position.x - transform.position.x) <=  normalRecognitionRange || typeStrass ==false)
+            {
+                typeStrass = true;
+
+                if (Mathf.Abs(_player.transform.position.x - transform.position.x) <= stressRecgnitionRange)
+                {
+
+                    if ((_player.transform.position - transform.position).x >= 0)
+                    {
+                        moveDir = 1;
+                        sprite.flipX = false;
+                    }
+                    else
+                    {
+                        moveDir = -1;
+                        sprite.flipX = true;
+                    }
+                }
+
+
+            }
+            else if (Mathf.Abs(_player.transform.position.x - transform.position.x) >= stressRecgnitionRange)
+            {
+                typeStrass = false;
+            }
+
+            
+
             rigid.velocity = new Vector2(moveDir * speed, rigid.velocity.y);
+
+            
+
             yield return null;
         }
     }
@@ -217,7 +243,7 @@ public class Enemy : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitUntil(() => !isAttack || !isOnKnockBack);
+            yield return new WaitUntil(() => !(isAttack || isOnKnockBack));
 
             ray = Physics2D.Raycast(capsuleCollider.bounds.min + Vector3.down * 0.3f, Vector2.right, capsuleCollider.bounds.extents.x * 2,
                 1 << LayerMask.NameToLayer("Ground"));
