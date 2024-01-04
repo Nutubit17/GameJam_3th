@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
                 rigid.velocity = new Vector3(dashDir * currentSpeed, rigid.velocity.y);
             }
 
-
+            animator.SetBool("onGround", ray);
 
             yield return null;
         }
@@ -95,6 +95,7 @@ public class Player : MonoBehaviour
     {
         ray = Physics2D.Raycast(boxCollider.bounds.min + Vector3.down*0.3f, Vector2.right, boxCollider.bounds.extents.x * 2, 
             1 << LayerMask.NameToLayer("Ground"));
+
         if (!ray && jumpCheck ==false)
         {
             animator.SetTrigger("down");
@@ -120,6 +121,7 @@ public class Player : MonoBehaviour
             {
                 if (onDash)
                     yield return null;
+                yield return new WaitUntil(() => UIManager.instance.playerStaminaBar.fillAmount > stamina*0.01f);
                 UIManager.instance.Staminadown(stamina);
                 currentSpeed = dashSpeed;
                 dashDir = currentDir;
