@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Player : MonoBehaviour
 {
@@ -38,6 +39,8 @@ public class Player : MonoBehaviour
     public bool isDash = false;
 
     private float dir;
+    private float time;
+    [SerializeField] private AnimationCurve hitColorCurve;
     public void Awake()
     {
         Instance = this;
@@ -163,8 +166,23 @@ public class Player : MonoBehaviour
             {
                 Enemy enemy = collision.GetComponentInParent<Enemy>();
                 UIManager.instance.Hpdown(enemy.damage);
+                StartCoroutine(PlayerHit());
+                ParticleManager.Instance.MakeParticle(transform.position, "PlayerBlood", 1f, null);
             }
         }
     }
 
+    private IEnumerator PlayerHit()
+    {
+        float persent = 1;
+        while(time < persent)
+        {
+            sprite.color = Color.Lerp(Color.white,new Color(183f/255, 130f/255, 130f/255, 1), hitColorCurve.Evaluate(time / persent));
+            time += Time.deltaTime;
+            yield return null;
+        }
+        time = 0;
+
+
+    }
 }

@@ -171,7 +171,6 @@ public class Enemy : MonoBehaviour
     public IEnumerator Attack()
     {
         yield return null;
-        Debug.Log((_player.transform.position - transform.position).sqrMagnitude <= Mathf.Pow(normalRecognitionRange, 2));
 
         while (true)
         {
@@ -208,7 +207,6 @@ public class Enemy : MonoBehaviour
     IEnumerator EnmeyState()
     {
         yield return null;
-        Debug.Log(Mathf.Abs(_player.transform.position.x - transform.position.x) <= normalRecognitionRange);
 
         while (true)
         {
@@ -338,6 +336,15 @@ public class Enemy : MonoBehaviour
         StopAllCoroutines();
         rigid.velocity = Vector2.zero;
         animator.SetTrigger("die");
+        
+        TimeControlPrincipal timeController = new TimeControlPrincipal();
+
+        timeController.mono = this;
+        timeController.currentTime = 1f;
+        timeController.nextTime = 0.01f;
+        timeController.time = 0.3f;
+        timeController.TryTimeControl();
+
     }
 
     public void DieAniEnd()
@@ -347,8 +354,6 @@ public class Enemy : MonoBehaviour
 
     public IEnumerator DieRoutine()
     {
-        capsuleCollider.enabled = false;
-
         hpGauge.transform.DOScaleX(0, 1f);
         yield return new WaitForSeconds(1f);
         DOTween.To(() => enemyMat.GetFloat(_RateHash), x => enemyMat.SetFloat(_RateHash, x), 1f, 5f);
@@ -366,6 +371,22 @@ public class Enemy : MonoBehaviour
 
             enemy.KnockBack(-dirToOther, 20f, 0.5f);
 
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.CompareTag("Poly") && !isDead)
+        {
+            ParticleManager.Instance.MakeParticle(transform.position, "Blood");
+            CameraManager.Instance.CameraShake(0.6f, 10, 50, 0.2f);
+            
+
+        }else if(isDead && collision.CompareTag("Poly"))
+        {
+            ParticleManager.Instance.MakeParticle(transform.position, "Blood");
+            CameraManager.Instance.CameraShake(1f, 10, 150, 0.2f);
         }
     }
 
