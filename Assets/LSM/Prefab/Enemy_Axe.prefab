@@ -609,7 +609,7 @@ MonoBehaviour:
   attackRange: 2
   attackCoolTime: 3
   isOntantion: 0
-  maxHp: 40
+  maxHp: 25
   currentHp: 0
   damage: 10
   speed: 3
