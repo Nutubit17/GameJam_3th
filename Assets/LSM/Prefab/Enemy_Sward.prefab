@@ -173,6 +173,7 @@ MonoBehaviour:
   stressDurationTime: 2
   attackRange: 2
   attackCoolTime: 1
+  maxSpeed: 20
   isOntantion: 0
   maxHp: 15
   currentHp: 0
