@@ -54,6 +54,9 @@ public class Enemy : MonoBehaviour
     public int currentHp;
     public int damage;
     public int speed;
+    public Vector2 moveRandomnessMinMax;
+    public float cureentMoveRandomness;
+    public float moveRandomChangeTime;
     public int jumpPower;
 
     public float moveDir;
@@ -100,10 +103,10 @@ public class Enemy : MonoBehaviour
 
         currentHp = maxHp;
     }
-    
+
     public virtual void Start()
     {
-        player = Player.Instance;    
+        player = Player.Instance;
     }
 
     public void OnEnable()
@@ -214,7 +217,7 @@ public class Enemy : MonoBehaviour
         {
             if (Mathf.Abs(player.transform.position.x - transform.position.x) <= normalRecognitionRange)
             {
-                if(!typeStress)
+                if (!typeStress)
                     enemyStateParticle = false;
 
                 typeNormal = false;
@@ -245,7 +248,7 @@ public class Enemy : MonoBehaviour
                     moveDir = 1;
                     sprite.flipX = false;
                 }
-                else if(Vector3.Distance(player.transform.position, transform.position) >= 1f)
+                else if (Vector3.Distance(player.transform.position, transform.position) >= 1f)
                 {
                     moveDir = -1;
                     sprite.flipX = true;
@@ -259,7 +262,7 @@ public class Enemy : MonoBehaviour
     public void EnemyStateParticle()
     {
         if (enemyStateParticle == false)
-        ParticleManager.Instance.MakeParticle(transform.position + Vector3.up * 2.2f, "Recognition", 2f, transform);
+            ParticleManager.Instance.MakeParticle(transform.position + Vector3.up * 2.2f, "Recognition", 2f, transform);
 
         enemyStateParticle = true;
     }
@@ -268,12 +271,15 @@ public class Enemy : MonoBehaviour
     {
         while (true)
         {
+
+
             yield return new WaitUntil(() => !isOnKnockBack);
 
+            Vector2 dir = new Vector2(moveDir
+                * (speed + cureentMoveRandomness) , rigid.velocity.y);
 
-
-            
-            Vector2 dir = new Vector2(moveDir * speed, rigid.velocity.y);
+            if(Mathf.Abs((Time.time / moveRandomChangeTime) - Mathf.Ceil(Time.time / moveRandomChangeTime)) <= Time.deltaTime)
+                cureentMoveRandomness = Random.Range(moveRandomnessMinMax.x, moveRandomnessMinMax.y);
 
             if (Mathf.Abs(player.transform.position.x - transform.position.x) <= 1)
             {
@@ -281,7 +287,10 @@ public class Enemy : MonoBehaviour
                 moveDir = 0;
             }
 
+
+
             rigid.velocity = dir;
+
 
             yield return null;
         }
@@ -346,7 +355,7 @@ public class Enemy : MonoBehaviour
         StopAllCoroutines();
         rigid.velocity = Vector2.zero;
         animationController.SetTrigger("die");
-        
+
         TimeControlPrincipal timeController = new TimeControlPrincipal();
 
         timeController.mono = this;
@@ -391,9 +400,10 @@ public class Enemy : MonoBehaviour
         {
             ParticleManager.Instance.MakeParticle(transform.position, "Blood");
             CameraManager.Instance.CameraShake(0.6f, 10, 50, 0.2f);
-            
 
-        }else if(isDead && collision.CompareTag("PlayerPoly"))
+
+        }
+        else if (isDead && collision.CompareTag("PlayerPoly"))
         {
             ParticleManager.Instance.MakeParticle(transform.position, "Blood");
             CameraManager.Instance.CameraShake(1f, 10, 150, 0.2f);
